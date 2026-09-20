@@ -1,0 +1,3563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Interior | Luxury Indoor Decor</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #c5a059;
+            /* Gold/Champagne */
+            --primary-hover: #b08d4b;
+            --bg-dark: #121212;
+            --bg-lighter: #1e1e1e;
+            --text-light: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar for a luxurious dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(197, 160, 89, 0.4);
+            /* subtle gold */
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+            /* bright gold primary */
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.login-gate-active {
+            overflow: hidden;
+        }
+
+        #preLoginScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: radial-gradient(circle at top, rgba(197, 160, 89, 0.22), transparent 45%), linear-gradient(135deg, #090909 0%, #151515 100%);
+        }
+
+        #preLoginScreen.hidden {
+            display: none;
+        }
+
+        .pre-login-card {
+            width: min(100%, 480px);
+            padding: 38px;
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+        }
+
+        .pre-login-card h1 {
+            font-size: 2.1rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .pre-login-card p {
+            color: var(--text-muted);
+            margin-bottom: 22px;
+            font-size: 0.95rem;
+        }
+
+        .pre-login-card .login-input-group {
+            margin-bottom: 14px;
+        }
+
+        .pre-login-card .login-input-group input {
+            border-radius: 12px;
+            padding: 13px 14px;
+        }
+
+        .pre-login-card .btn {
+            width: 100%;
+            margin-top: 8px;
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+
+        .pre-login-switch {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding: 6px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .pre-login-switch button {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .pre-login-switch button.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 6px 16px rgba(197, 160, 89, 0.25);
+        }
+
+        .pre-login-form {
+            display: none;
+        }
+
+        .pre-login-form.active {
+            display: block;
+        }
+
+        #siteContent {
+            display: none;
+        }
+
+        #siteContent.active {
+            display: block;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        /* Header / Nav */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon,
+        .wishlist-icon,
+        .profile-icon {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cart-count,
+        .wishlist-count {
+            background: var(--primary);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .profile-dropdown {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-dropdown a,
+        .profile-dropdown p,
+        .profile-dropdown button {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            color: var(--text-light);
+            text-decoration: none;
+            text-align: left;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .profile-dropdown a:hover,
+        .profile-dropdown button:hover {
+            color: var(--primary);
+        }
+
+        .profile-user-info {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .profile-user-info p {
+            margin: 5px 0;
+            padding: 0;
+        }
+
+        /* Hero Section - Live Wallpaper */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-dark);
+        }
+
+        .live-wallpaper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .wallpaper-img {
+            position: absolute;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            background: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            animation: kenburns 25s infinite alternate ease-in-out;
+        }
+
+        .light-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            animation: floatOrb 20s infinite ease-in-out alternate;
+        }
+
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: 10%;
+            left: 20%;
+            animation-duration: 25s;
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: #ffffff;
+            bottom: -10%;
+            right: 10%;
+            animation-duration: 28s;
+            animation-delay: -10s;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.4) 100%);
+            z-index: 1;
+        }
+
+        @keyframes kenburns {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.1) translate(-2%, 2%);
+            }
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(60px, -60px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-40px, 40px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: left;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 5%;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: block;
+            animation: fadeInDown 1s ease forwards;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background-color: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 4px;
+            transition: var(--transition);
+            border: 1px solid var(--primary);
+            cursor: pointer;
+        }
+
+        .hero .btn {
+            animation: fadeInUp 1s ease 0.9s forwards;
+            opacity: 0;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 5%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Categories */
+        .categories {
+            background-color: var(--bg-lighter);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            cursor: pointer;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .category-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.1) 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+        }
+
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .category-overlay h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 5px;
+            transition: var(--transition);
+        }
+
+        .category-overlay span {
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .category-card:hover .category-overlay span {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Products Slider / Grid */
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3rem;
+        }
+
+        .products-header .section-title {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .products-header .section-title::after {
+            display: none;
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .view-all:hover {
+            color: var(--text-light);
+            gap: 10px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: var(--bg-lighter);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(197, 160, 89, 0.2);
+        }
+
+        .product-image {
+            position: relative;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: #fff;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(18, 18, 18, 0.4);
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 5;
+            backdrop-filter: blur(4px);
+            transition: var(--transition);
+        }
+
+        .wishlist-btn:hover,
+        .wishlist-btn.active {
+            background: rgba(18, 18, 18, 0.9);
+            color: #e74c3c;
+            transform: scale(1.1);
+        }
+
+        .wishlist-btn.active svg {
+            fill: currentColor;
+        }
+
+        .add-to-cart-overlay {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            background: rgba(197, 160, 89, 0.9);
+            color: #fff;
+            text-align: center;
+            padding: 12px 0;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-card:hover .add-to-cart-overlay {
+            bottom: 0;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-family: var(--font-body);
+            font-weight: 500;
+        }
+
+        .product-price {
+            margin-top: auto;
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-family: var(--font-heading);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--bg-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px 5%;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .feature-item svg {
+            width: 40px;
+            height: 40px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Contact / Newsletter Section */
+        .newsletter {
+            background: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3') center/cover fixed;
+            text-align: center;
+            padding: 100px 5%;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .newsletter p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .subscribe-form input {
+            flex-grow: 1;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .subscribe-form input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            padding: 80px 5% 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about p {
+            color: var(--text-muted);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-links h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Login Modal specific styling */
+        .login-form-container {
+            max-width: 100%;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .login-input-group {
+            margin-bottom: 16px;
+        }
+
+        .login-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            letter-spacing: 0.02em;
+        }
+
+        .login-input-group input {
+            width: 100%;
+            padding: 13px 15px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border-radius: 10px;
+            font-family: var(--font-body);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .login-input-group input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            font-size: 0.85rem;
+        }
+
+        .login-options a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .login-options a:hover {
+            text-decoration: underline;
+        }
+
+        .professional-login-shell {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .professional-form-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 24px;
+            text-align: left;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+        }
+
+        .professional-form-card h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .professional-form-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .professional-form-card .login-form-container {
+            max-width: 100%;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Mock Social Sign Up Modals and Register Modal Styling */
+        .social-brand-facebook {
+            background-color: #1877F2 !important;
+            color: #fff !important;
+            border-color: #1877F2 !important;
+        }
+
+        .social-brand-facebook:hover {
+            background-color: #166FE5 !important;
+            border-color: #166FE5 !important;
+            color: #fff !important;
+            opacity: 0.9;
+        }
+
+        .social-brand-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+            color: #fff !important;
+            border: none !important;
+        }
+
+        .social-brand-instagram:hover {
+            opacity: 0.9;
+            color: #fff !important;
+        }
+
+        .mock-social-header {
+            padding: 30px 20px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mock-social-header.facebook {
+            background-color: #1877F2;
+        }
+
+        .mock-social-header.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .mock-social-logo-text {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .mock-social-logo-text.facebook {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .mock-social-logo-text.instagram {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .mock-form-card {
+            background: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .mock-form-card.dark {
+            background: #1e1e1e;
+            color: #f5f5f5;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mock-input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .mock-input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .mock-input-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .mock-input-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .mock-form-card.dark .mock-input-group input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .mock-form-card.dark .mock-input-group input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            /* Mobile menu needed ideally */
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(18, 18, 18, 0.95);
+            /* Dark background */
+            color: var(--primary);
+            /* Gold text instead of dark text */
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            /* Subtle gold border */
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 4px;
+            font-weight: 500;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 9999;
+            /* Increased to show above modals */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Modal / Category Details */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-dark);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            border-radius: 12px;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(50px) scale(0.95);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .modal-back:hover {
+            background: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        .modal-header {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+        }
+
+        .modal-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(18, 18, 18, 1) 0%, rgba(18, 18, 18, 0.3) 100%);
+            z-index: 1;
+        }
+
+        .modal-title {
+            position: relative;
+            z-index: 2;
+            font-size: 3rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-description {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+
+        .modal-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .modal-product-card {
+            background: var(--bg-lighter);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .modal-product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(197, 160, 89, 0.3);
+        }
+
+        .modal-product-img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .modal-product-info {
+            padding: 15px;
+        }
+
+        .modal-product-title {
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .modal-product-price {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Responsive Modal */
+        @media (max-width: 600px) {
+            .modal-header {
+                height: 200px;
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-size: 2rem;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .modal-products {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="preLoginScreen">
+        <div class="pre-login-card">
+            <h1>Welcome</h1>
+            <p>Choose a way to continue into the Elegant Interior experience.</p>
+            <form class="pre-login-form active" id="preLoginFormLogin" onsubmit="handlePreLoginSubmit(event)">
+                <div class="login-input-group">
+                    <label for="preLoginEmail">Email Address</label>
+                    <input type="email" id="preLoginEmail" placeholder="Enter your email" autocomplete="email" required>
+                </div>
+                <div class="login-input-group">
+                    <label for="preLoginPassword">Password</label>
+                    <input type="password" id="preLoginPassword" placeholder="Enter your password"
+                        autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="btn">Enter Website</button>
+                <p style="text-align:center; margin-top:14px; color:var(--text-muted); font-size:0.9rem;">
+                    Don't have an account? <a href="#" onclick="event.preventDefault(); switchPreLoginMode('register');"
+                        style="color:var(--primary); text-decoration:none;">Register</a>
+                </p>
+            </form>
+            <form class="pre-login-form" id="preLoginFormRegister" onsubmit="handlePreRegisterSubmit(event)">
+                <div class="login-input-group">
+                    <label for="preRegisterName">Full Name</label>
+                    <input type="text" id="preRegisterName" placeholder="Enter your full name" required>
+                </div>
+                <div class="login-input-group">
+                    <label for="preRegisterEmail">Email Address</label>
+                    <input type="email" id="preRegisterEmail" placeholder="Enter your email" autocomplete="email"
+                        required>
+                </div>
+                <div class="login-input-group">
+                    <label for="preRegisterPassword">Password</label>
+                    <input type="password" id="preRegisterPassword" placeholder="Create a password"
+                        autocomplete="new-password" minlength="6" required>
+                </div>
+                <button type="submit" class="btn">Create Account</button>
+                <p style="text-align:center; margin-top:14px; color:var(--text-muted); font-size:0.9rem;">
+                    Already have an account? <a href="#" onclick="event.preventDefault(); switchPreLoginMode('login');"
+                        style="color:var(--primary); text-decoration:none;">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <div id="siteContent">
+        <!-- Header -->
+        <header id="header">
+            <a href="#" class="logo">Elegant Interior<span>.</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="openNavHomeModal(event)">Home</a></li>
+                    <li><a href="#" onclick="openNavCategoriesModal(event)">Categories</a></li>
+                    <li><a href="#" onclick="openNavShopModal(event)">Shop</a></li>
+                    <li><a href="#" onclick="openNavSubscribeModal(event)">Subscribe <span id="navSubscriberCount"
+                                style="opacity: 0.7; font-size: 0.8em; margin-left: 4px; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 10px;">12,458</span></a>
+                    </li>
+                    <li><a href="#" onclick="openOrderTrackingModal(event)">Order Tracking</a></li>
+                    <li>
+                        <a href="#wishlist" class="wishlist-icon" onclick="openWishlistDisplayModal(event)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                            <span class="wishlist-count">0</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#cart" class="cart-icon" onclick="openCartDisplayModal(event)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="profile-icon" onclick="toggleProfileDropdown(event)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </a>
+                        <div id="profileDropdown" class="profile-dropdown" style="display: none; position: absolute; top: 50px; right: 0; background: rgba(30, 30, 30, 0.95); border: 1px solid rgba(197, 160, 89, 0.3); border-radius: 8px; padding: 15px; min-width: 200px; z-index: 2000; backdrop-filter: blur(10px);">
+                            <div id="profileContent"></div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <!-- Live Wallpaper Elements -->
+            <div class="live-wallpaper">
+                <div class="wallpaper-img"></div>
+                <div class="light-orb orb1"></div>
+                <div class="light-orb orb2"></div>
+            </div>
+
+            <div class="hero-content">
+                <span class="hero-subtitle">Exclusive Home Decor Store</span>
+                <h1>Curated Luxury for Your Living Space</h1>
+                <p>Discover our exclusive collection of premium furniture, elegant lighting, and bespoke decor
+                    accessories
+                    designed to transform your house into a dream home.</p>
+            </div>
+        </section>
+
+
+
+        <!-- Toast Notification Element -->
+        <div id="toast" class="toast">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span id="toastMessage">Item added to cart!</span>
+        </div>
+
+        <!-- Category Detail Modal -->
+        <div id="categoryModal" class="modal-overlay">
+            <div class="modal-content">
+                <button class="modal-back" onclick="closeCategoryModal(); openNavCategoriesModal(event)"
+                    title="Back to Categories">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </button>
+                <button class="modal-close" onclick="closeCategoryModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div class="modal-header">
+                    <img id="modalHeaderImg" src="" alt="Category Header" class="modal-header-bg">
+                    <h2 id="modalTitle" class="modal-title">Category Name</h2>
+                </div>
+
+                <div class="modal-body">
+                    <p id="modalDescription" class="modal-description">Category description goes here.</p>
+
+                    <h3
+                        style="margin-bottom: 20px; font-size: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                        Featured in this Category</h3>
+
+                    <div id="modalProductsGrid" class="modal-products">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscribe Detail Modal -->
+        <div id="subscribeModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 500px; text-align: center; padding: 40px;">
+                <button class="modal-close" onclick="closeSubscribeModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div style="margin-bottom: 20px;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--primary)"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto;">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </div>
+
+                <h2 style="font-size: 2rem; margin-bottom: 10px; color: #fff;">Subscription Set!</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
+                    Thank you for subscribing, <strong id="subscribedEmail" style="color: #fff;"></strong>!
+                    <br><br>
+                    You're now on the exclusive list. Keep an eye on your inbox for our latest collections, styling
+                    tips,
+                    and your 10% welcome discount code.
+                </p>
+
+                <button class="btn" style="width: 100%;" onclick="closeSubscribeModal()">Continue Shopping</button>
+            </div>
+        </div>
+
+        <!-- Nav Home Modal -->
+        <div id="navHomeModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 600px; padding: 40px; text-align: center;">
+                <button class="modal-close" onclick="closeNavHomeModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <h2 style="font-size: 2rem; margin-bottom: 20px; color: #fff; font-family: var(--font-heading);">Welcome
+                    to
+                    Dream House</h2>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">Discover our exclusive collection of premium
+                    furniture, elegant lighting, and bespoke decor accessories.</p>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <a href="#home" onclick="closeNavHomeModal(); window.location.hash='#home'"
+                        class="btn btn-outline">Go
+                        to Homepage</a>
+                    <a href="#" onclick="closeNavHomeModal(); openNavShopModal(event)" class="btn">Shop Now</a>
+                </div>
+                <div
+                    style="margin-top: 30px; text-align: left; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px;">
+                    <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.2rem;">Why choose us?</h3>
+                    <ul style="color: var(--text-muted); font-size: 0.9rem; margin-left: 20px; line-height: 1.8;">
+                        <li>Premium Quality finishes</li>
+                        <li>Secure Delivery & Packaging</li>
+                        <li>30-Day Returns Policy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nav Categories Modal -->
+        <div id="navCategoriesModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 600px; padding: 40px; text-align: center;">
+                <button class="modal-close" onclick="closeNavCategoriesModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <h2 style="font-size: 2rem; margin-bottom: 20px; color: #fff; font-family: var(--font-heading);">Our
+                    Categories</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <a href="#categories"
+                        onclick="closeNavCategoriesModal(); setTimeout(()=>openCategoryModal('Furniture', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3', 'Explore our premium collection of handcrafted furniture designed for both comfort and absolute elegance.'), 100)"
+                        class="btn btn-outline" style="padding: 15px 10px; font-size: 0.8rem;">Furniture</a>
+                    <a href="#categories"
+                        onclick="closeNavCategoriesModal(); setTimeout(()=>openCategoryModal('Lighting', 'https://images.unsplash.com/photo-1540932239986-30128078f3c5?ixlib=rb-4.0.3', 'Illuminate your spaces with our exquisite range of modern and classic lighting fixtures.'), 100)"
+                        class="btn btn-outline" style="padding: 15px 10px; font-size: 0.8rem;">Lighting</a>
+                    <a href="#categories"
+                        onclick="closeNavCategoriesModal(); setTimeout(()=>openCategoryModal('Decor Accents', 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3', 'Discover unique decor accents that add the perfect finishing touch to any room.'), 100)"
+                        class="btn btn-outline" style="padding: 15px 10px; font-size: 0.8rem;">Decor Accents</a>
+                    <a href="#categories"
+                        onclick="closeNavCategoriesModal(); setTimeout(()=>openCategoryModal('Pitchers', 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3', 'Browse our beautiful collection of ceramic, glass, and vintage pitchers for your home.'), 100)"
+                        class="btn btn-outline" style="padding: 15px 10px; font-size: 0.8rem;">Pitchers</a>
+                    <a href="#categories"
+                        onclick="closeNavCategoriesModal(); setTimeout(()=>openCategoryModal('Kitchen Decor', 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3', 'Elevate your culinary space with our premium kitchen decor and accessories.'), 100)"
+                        class="btn btn-outline" style="padding: 15px 10px; font-size: 0.8rem;">Kitchen Decor</a>
+                    <a href="#categories"
+                        onclick="closeNavCategoriesModal(); setTimeout(()=>openCategoryModal('Bedroom Decor', 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3', 'Create your personal sanctuary with our curated bedroom furnishings and decor.'), 100)"
+                        class="btn btn-outline" style="padding: 15px 10px; font-size: 0.8rem;">Bedroom Decor</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nav Shop Modal -->
+        <div id="navShopModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 1200px; padding: 40px; text-align: center;">
+                <button class="modal-close" onclick="closeNavShopModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <h2 style="font-size: 2rem; margin-bottom: 30px; color: #fff; font-family: var(--font-heading);">
+                    Trending
+                    Products</h2>
+
+                <div class="products-grid" style="text-align: left;">
+                    <!-- Product 1 -->
+                    <div class="product-card"
+                        onclick="openProductDetailModal('Emerald Velvet Accent Chair', '$850.00', 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Furniture', 'Add a touch of luxurious vibrancy to any room. Upholstered in premium emerald velvet and supported by sleek golden legs, this chair is both a centerpiece and a comfortable retreat.')">
+                        <div class="product-image">
+                            <span class="product-badge">New</span>
+                            <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Velvet Accent Chair">
+                            <div class="add-to-cart-overlay"
+                                onclick="event.stopPropagation(); addToCart('Emerald Velvet Accent Chair')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Furniture</span>
+                            <h3 class="product-title">Emerald Velvet Accent Chair</h3>
+                            <div class="product-price">$850.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card"
+                        onclick="openProductDetailModal('Nordic Ceramic Vase Set', '$110.00', 'https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Decor Accents', 'Minimalist design meets artisanal craftsmanship. This stunning set of ceramic vases perfectly complements modern interiors, especially with dried botanicals.')">
+                        <div class="product-image">
+                            <span class="product-badge" style="background:#e74c3c;">Sale</span>
+                            <img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Minimalist Ceramic Vase">
+                            <div class="add-to-cart-overlay"
+                                onclick="event.stopPropagation(); addToCart('Nordic Ceramic Vase Set')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Decor Accents</span>
+                            <h3 class="product-title">Nordic Ceramic Vase Set</h3>
+                            <div class="product-price">
+                                $110.00
+                                <span class="original-price">$145.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card"
+                        onclick="openProductDetailModal('Carrara Marble Coffee Table', '$1,250.00', 'https://images.unsplash.com/photo-1599619351208-3e6c839d6828?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Furniture', 'Sculpted from genuine Carrara marble, this coffee table anchors your living space with natural elegance. Each piece features unique veining.')">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1599619351208-3e6c839d6828?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Marble Coffee Table">
+                            <div class="add-to-cart-overlay"
+                                onclick="event.stopPropagation(); addToCart('Carrara Marble Coffee Table')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Furniture</span>
+                            <h3 class="product-title">Carrara Marble Coffee Table</h3>
+                            <div class="product-price">$1,250.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="product-card"
+                        onclick="openProductDetailModal('Vintage Pitcher Wall Art Print', '$85.00', 'https://images.unsplash.com/photo-1615529182904-14819c35db37?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Wall Art', 'A beautifully stylized print featuring a classic vintage ceramic pitcher. Exquisitely framed to add a rustic yet refined aesthetic to your interior.')">
+                        <div class="product-image">
+                            <span class="product-badge">New</span>
+                            <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Vintage Ceramic Pitcher Wall Art">
+                            <div class="add-to-cart-overlay"
+                                onclick="event.stopPropagation(); addToCart('Vintage Pitcher Wall Art')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Wall Art</span>
+                            <h3 class="product-title">Vintage Pitcher Wall Art Print</h3>
+                            <div class="product-price">$85.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="product-card"
+                        onclick="openProductDetailModal('Brass Arc Floor Lamp', '$280.00', 'https://images.unsplash.com/photo-1540932239986-30128078f3c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Lighting', 'An overarching statement piece offering targeted warm light. The brass finish exudes timeless luxury, perfect for draping over an armchair or sofa.')">
+                        <div class="product-image">
+                            <span class="product-badge" style="background:#e74c3c;">Sale</span>
+                            <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Brass Floor Lamp">
+                            <div class="add-to-cart-overlay"
+                                onclick="event.stopPropagation(); addToCart('Brass Arc Floor Lamp')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Lighting</span>
+                            <h3 class="product-title">Brass Arc Floor Lamp</h3>
+                            <div class="product-price">
+                                $280.00
+                                <span class="original-price">$340.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div class="product-card"
+                        onclick="openProductDetailModal('Boho Rattan Lounge Chair', '$450.00', 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Furniture', 'Infuse warmth and texture into your decor. Skillfully handwoven natural rattan shapes a casually sophisticated silhouette for ultimate relaxation.')">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1544457070-4cd773b4d71e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Rattan Lounge Chair">
+                            <div class="add-to-cart-overlay"
+                                onclick="event.stopPropagation(); addToCart('Rattan Lounge Chair')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Furniture</span>
+                            <h3 class="product-title">Boho Rattan Lounge Chair</h3>
+                            <div class="product-price">$450.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Product 9 -->
+                    <div class="product-card"
+                        onclick="openProductDetailModal('Vintage Ceramic Pitcher', '$65.00', 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Decor Accents', 'An authentic vintage ceramic pitcher boasting beautiful glazing and rustic charm. Perfect as a standalone accent piece or for displaying fresh blooms.')">
+                        <div class="product-image">
+                            <span class="product-badge" style="background:var(--primary);">Trending</span>
+                            <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Vintage Ceramic Pitcher">
+                            <div class="add-to-cart-overlay"
+                                onclick="event.stopPropagation(); addToCart('Vintage Ceramic Pitcher')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Decor Accents</span>
+                            <h3 class="product-title">Vintage Ceramic Pitcher</h3>
+                            <div class="product-price">$65.00</div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Nav Subscribe Modal -->
+        <div id="navSubscribeModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 500px; padding: 40px; text-align: center;">
+                <button class="modal-close" onclick="closeNavSubscribeModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <h2 style="font-size: 2rem; margin-bottom: 15px; color: #fff; font-family: var(--font-heading);">Join
+                    Our
+                    Newsletter</h2>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">Get exclusive offers, styling tips, and 10%
+                    off
+                    your first luxury purchase.</p>
+                <form onsubmit="handleNavSubscribe(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="email" id="navSubEmail" placeholder="Enter your email address" required
+                        style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 4px; outline: none; transition: 0.3s; font-family: var(--font-body);">
+                    <button type="submit" class="btn">Subscribe Now</button>
+                </form>
+                <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.85rem;">
+                    Join <span id="subscriberCount" style="color: var(--primary); font-weight: bold;">12,458</span>
+                    members
+                    who love our updates!
+                </p>
+            </div>
+        </div>
+
+        <!-- Order Tracking Modal -->
+        <div id="orderTrackingModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 600px; padding: 40px; text-align: center;">
+                <button class="modal-close" onclick="closeOrderTrackingModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                
+                <div style="margin-bottom: 20px;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--primary)"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto;">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+
+                <h2 style="font-size: 2rem; margin-bottom: 10px; color: #fff; font-family: var(--font-heading);">Track Your Order</h2>
+                <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">
+                    Enter your order number to track your delivery status and get real-time updates.
+                </p>
+
+                <form onsubmit="handleOrderTracking(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                    <input 
+                        type="text" 
+                        id="orderTrackingInput" 
+                        placeholder="Enter your Order ID (e.g., ORD-2026-12345)" 
+                        style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 4px; outline: none; transition: 0.3s; font-family: var(--font-body);" 
+                    />
+                    <button type="submit" class="btn" style="width: 100%; padding: 12px;">Track Order</button>
+                </form>
+                
+                <div id="trackingResult" style="margin-top: 25px; display: none; padding: 20px; background: rgba(197, 160, 89, 0.1); border-left: 4px solid var(--primary); border-radius: 4px; text-align: left;">
+                    <h3 style="color: #fff; margin-bottom: 10px;" id="trackingStatus">Order Status</h3>
+                    <p id="trackingDetails" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;"></p>
+                </div>
+
+                <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.85rem;">
+                    Don't have an order yet? <a href="#" onclick="closeOrderTrackingModal(); openNavShopModal(event)" style="color: var(--primary); text-decoration: none;">Start shopping</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Product Detail Modal -->
+        <div id="productDetailModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 800px; display: flex; flex-direction: column;">
+                <button class="modal-back" onclick="closeProductDetailModal(); setTimeout(() => openNavShopModal(event), 100)" title="Back to Showroom">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </button>
+                <button class="modal-close" onclick="closeProductDetailModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div style="display: flex; flex-wrap: wrap; height: 100%;">
+                    <div style="flex: 1; min-width: 300px;">
+                        <img id="detailImg" src="" alt="Product Image"
+                            style="width: 100%; height: 100%; object-fit: cover; border-top-left-radius: 12px; border-bottom-left-radius: 12px;">
+                    </div>
+                    <div
+                        style="flex: 1; min-width: 300px; padding: 40px; display: flex; flex-direction: column; justify-content: center;">
+                        <span id="detailCategory" class="product-category"
+                            style="margin-bottom: 10px; display: block;">Category</span>
+                        <h2 id="detailTitle"
+                            style="font-size: 2rem; margin-bottom: 15px; color: #fff; font-family: var(--font-heading);">
+                            Product Title</h2>
+                        <div id="detailPrice"
+                            style="font-size: 1.5rem; color: var(--primary); font-weight: 600; margin-bottom: 25px;">
+                            $0.00
+                        </div>
+                        <p id="detailDescription"
+                            style="color: var(--text-muted); line-height: 1.6; margin-bottom: 35px;">
+                            Product description goes here.</p>
+
+                        <div style="display: flex; gap: 15px; margin-top: auto;">
+                            <button class="btn" style="flex: 2;"
+                                onclick="closeProductDetailModal(); addToCart(document.getElementById('detailTitle').textContent)">Add
+                                to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Detail Modal -->
+        <div id="loginModal" class="modal-overlay">
+            <div class="modal-content"
+                style="max-width: 620px; padding: 38px; text-align: center; border-radius: 20px;">
+                <button class="modal-close" onclick="closeLoginModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <h2 style="font-size: 2rem; margin-bottom: 10px; color: #fff; font-family: var(--font-heading);">Welcome
+                    Back</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Sign in to access your luxury interior
+                    experience.</p>
+
+                <div class="professional-login-shell">
+                    <div class="professional-auth-side" style="display: none;"></div>
+
+                    <div class="professional-form-card">
+                        <h3>Sign In</h3>
+                        <p>Please enter your details to continue.</p>
+
+                        <form class="login-form-container" onsubmit="handleLoginSubmit(event)">
+                            <div class="login-input-group">
+                                <label for="loginEmail">Email Address</label>
+                                <input type="email" id="loginEmail" placeholder="Enter your email" autocomplete="email"
+                                    required>
+                            </div>
+
+                            <div class="login-input-group">
+                                <label for="loginPassword">Password</label>
+                                <input type="password" id="loginPassword" placeholder="Enter your password"
+                                    autocomplete="current-password" required>
+                            </div>
+
+                            <div class="login-options">
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="checkbox"> Remember me
+                                </label>
+                                <a href="#">Forgot password?</a>
+                            </div>
+
+                            <div style="display: flex; gap: 15px; margin-bottom: 18px;">
+                                <button type="button" class="btn btn-outline" style="flex: 1;"
+                                    onclick="closeLoginModal()">Cancel</button>
+                                <button type="submit" class="btn" style="flex: 1;">Sign In</button>
+                            </div>
+
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                                New here? <a href="#" onclick="openRegisterModal(event)"
+                                    style="color: var(--primary); text-decoration: none;">Create an account</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Detail Modal -->
+        <div id="registerModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 450px; padding: 40px; text-align: center;">
+                <button class="modal-close" onclick="closeRegisterModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <h2 style="font-size: 2rem; margin-bottom: 30px; color: #fff; font-family: var(--font-heading);">Create
+                    Account</h2>
+
+                <form class="login-form-container" onsubmit="handleRegisterSubmit(event)">
+                    <div class="login-input-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="login-input-group">
+                        <label for="registerEmail">Email Address</label>
+                        <input type="email" id="registerEmail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="login-input-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" placeholder="Create a password" required>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px; margin-top: 25px;">
+                        <button type="button" class="btn btn-outline" style="flex: 1;"
+                            onclick="closeRegisterModal()">Cancel</button>
+                        <button type="submit" class="btn" style="flex: 1;">Sign Up</button>
+                    </div>
+
+                    <div style="margin: 20px 0; display: flex; align-items: center; gap: 15px;">
+                        <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Or sign up with</span>
+                        <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; margin-bottom: 25px;">
+                        <button type="button" class="btn btn-outline social-brand-facebook"
+                            style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px;"
+                            onclick="openSocialSignUp('Facebook')">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                            Facebook
+                        </button>
+                        <button type="button" class="btn btn-outline social-brand-instagram"
+                            style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px;"
+                            onclick="openSocialSignUp('Instagram')">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                            Instagram
+                        </button>
+                    </div>
+
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        Already have an account? <a href="#" onclick="switchToLogin(event)"
+                            style="color: var(--primary); text-decoration: none;">Sign In</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Facebook Mock Registration Modal -->
+        <div id="facebookMockModal" class="modal-overlay">
+            <div class="modal-content"
+                style="max-width: 450px; border-radius: 8px; overflow: hidden; background: #f0f2f5;">
+                <button class="modal-close" onclick="closeSocialSignUp('Facebook')"
+                    style="background: rgba(0,0,0,0.2); color: #000;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div class="mock-social-header facebook">
+                    <div class="mock-social-logo-text facebook">facebook</div>
+                    <p style="color: #fff; margin-top: 5px; font-size: 0.9rem; opacity: 0.9;">Create a New Facebook
+                        Account to Link</p>
+                </div>
+
+                <div style="padding: 20px 30px;">
+                    <form class="mock-form-card" onsubmit="handleSocialRegisterSubmit(event, 'Facebook')"
+                        style="margin: 0 auto; box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);">
+                        <h3
+                            style="margin-bottom: 20px; font-size: 1.3rem; font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 10px; color: #1c1e21; font-family: Helvetica, Arial, sans-serif;">
+                            Sign Up</h3>
+
+                        <div class="mock-input-group">
+                            <label for="fbName" style="color: #606770;">Full Name</label>
+                            <input type="text" id="fbName" placeholder="First name and last name" required
+                                style="border: 1px solid #ccd0d5; padding: 11px; background: #f5f6f7; color: #000;">
+                        </div>
+
+                        <div class="mock-input-group">
+                            <label for="fbEmail" style="color: #606770;">Mobile number or email address</label>
+                            <input type="text" id="fbEmail" placeholder="Enter email or mobile number" required
+                                style="border: 1px solid #ccd0d5; padding: 11px; background: #f5f6f7; color: #000;">
+                        </div>
+
+                        <div class="mock-input-group">
+                            <label for="fbPassword" style="color: #606770;">New password</label>
+                            <input type="password" id="fbPassword" placeholder="Choose a secure password" required
+                                style="border: 1px solid #ccd0d5; padding: 11px; background: #f5f6f7; color: #000;">
+                        </div>
+
+                        <button type="submit"
+                            style="width: 100%; padding: 12px; background-color: #00a400; border: none; border-radius: 6px; color: #fff; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 15px; transition: background-color 0.2s;"
+                            onmouseover="this.style.backgroundColor='#008f00'"
+                            onmouseout="this.style.backgroundColor='#00a400'">
+                            Sign Up
+                        </button>
+
+                        <div style="margin-top: 15px; text-align: center; font-size: 0.85rem; color: #606770;">
+                            By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy.
+                        </div>
+                        <div
+                            style="margin-top: 15px; text-align: center; font-size: 0.85rem; color: #606770; border-top: 1px solid #dadde1; padding-top: 10px;">
+                            Already have an account? <a href="#" onclick="switchToSocialLogin('Facebook')"
+                                style="color: #1877f2; text-decoration: none; font-weight: bold;">Log In</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Mock Registration Modal -->
+        <div id="instagramMockModal" class="modal-overlay">
+            <div class="modal-content"
+                style="max-width: 450px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid #262626;">
+                <button class="modal-close" onclick="closeSocialSignUp('Instagram')"
+                    style="background: rgba(255,255,255,0.1); color: #fff;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div class="mock-social-header instagram">
+                    <div class="mock-social-logo-text instagram">Instagram</div>
+                    <p style="color: #fff; margin-top: 5px; font-size: 0.9rem; opacity: 0.9;">Sign up to see photos and
+                        videos from your friends.</p>
+                </div>
+
+                <div style="padding: 20px 30px;">
+                    <form class="mock-form-card dark" onsubmit="handleSocialRegisterSubmit(event, 'Instagram')"
+                        style="margin: 0 auto; border: 1px solid #262626; background: #000; padding: 25px 30px;">
+                        <div class="mock-input-group">
+                            <label for="igEmail" style="color: #8e8e8e;">Mobile Number or Email</label>
+                            <input type="text" id="igEmail" placeholder="Email address" required
+                                style="background: #121212; border: 1px solid #262626; padding: 9px 8px; font-size: 0.85rem; border-radius: 3px; color: #fff;">
+                        </div>
+
+                        <div class="mock-input-group">
+                            <label for="igFullName" style="color: #8e8e8e;">Full Name</label>
+                            <input type="text" id="igFullName" placeholder="First and last name" required
+                                style="background: #121212; border: 1px solid #262626; padding: 9px 8px; font-size: 0.85rem; border-radius: 3px; color: #fff;">
+                        </div>
+
+                        <div class="mock-input-group">
+                            <label for="igUsername" style="color: #8e8e8e;">Username</label>
+                            <input type="text" id="igUsername" placeholder="Create a unique username" required
+                                style="background: #121212; border: 1px solid #262626; padding: 9px 8px; font-size: 0.85rem; border-radius: 3px; color: #fff;">
+                        </div>
+
+                        <div class="mock-input-group">
+                            <label for="igPassword" style="color: #8e8e8e;">Password</label>
+                            <input type="password" id="igPassword" placeholder="Create password" required
+                                style="background: #121212; border: 1px solid #262626; padding: 9px 8px; font-size: 0.85rem; border-radius: 3px; color: #fff;">
+                        </div>
+
+                        <button type="submit"
+                            style="width: 100%; padding: 7px; background-color: #0095f6; border: none; border-radius: 4px; color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 15px;"
+                            onmouseover="this.style.backgroundColor='#1877f2'"
+                            onmouseout="this.style.backgroundColor='#0095f6'">
+                            Sign Up
+                        </button>
+
+                        <div
+                            style="margin-top: 20px; text-align: center; font-size: 0.75rem; color: #8e8e8e; line-height: 1.4;">
+                            People who use our service may have uploaded your contact information to Instagram.
+                        </div>
+                        <div
+                            style="margin-top: 20px; text-align: center; font-size: 0.85rem; color: #8e8e8e; border-top: 1px solid #262626; padding-top: 15px;">
+                            Have an account? <a href="#" onclick="switchToSocialLogin('Instagram')"
+                                style="color: #0095f6; text-decoration: none; font-weight: 600;">Log In</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facebook Mock Login Modal -->
+        <div id="facebookLoginModal" class="modal-overlay">
+            <div class="modal-content"
+                style="max-width: 450px; border-radius: 8px; overflow: hidden; background: #f0f2f5;">
+                <button class="modal-close" onclick="closeSocialLoginModal('Facebook')"
+                    style="background: rgba(0,0,0,0.2); color: #000;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div class="mock-social-header facebook">
+                    <div class="mock-social-logo-text facebook">facebook</div>
+                    <p style="color: #fff; margin-top: 5px; font-size: 0.9rem; opacity: 0.9;">Log In to Connect with
+                        Elegant Interior</p>
+                </div>
+
+                <div style="padding: 20px 30px;">
+                    <form class="mock-form-card" onsubmit="handleSocialLoginSubmit(event, 'Facebook')"
+                        style="margin: 0 auto; box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);">
+                        <div class="mock-input-group">
+                            <label for="fbLoginEmail" style="color: #606770;">Email address or phone number</label>
+                            <input type="text" id="fbLoginEmail" placeholder="Email or phone number" required
+                                style="border: 1px solid #ccd0d5; padding: 11px; background: #f5f6f7; color: #000;">
+                        </div>
+
+                        <div class="mock-input-group">
+                            <label for="fbLoginPassword" style="color: #606770;">Password</label>
+                            <input type="password" id="fbLoginPassword" placeholder="Enter password" required
+                                style="border: 1px solid #ccd0d5; padding: 11px; background: #f5f6f7; color: #000;">
+                        </div>
+
+                        <button type="submit"
+                            style="width: 100%; padding: 12px; background-color: #1877f2; border: none; border-radius: 6px; color: #fff; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 15px; transition: background-color 0.2s;"
+                            onmouseover="this.style.backgroundColor='#166fe5'"
+                            onmouseout="this.style.backgroundColor='#1877f2'">
+                            Log In
+                        </button>
+
+                        <div
+                            style="margin-top: 15px; text-align: center; border-bottom: 1px solid #dadde1; padding-bottom: 15px;">
+                            <a href="#" style="color: #1877f2; text-decoration: none; font-size: 0.85rem;"
+                                onclick="alert('Password recovery simulated.')">Forgotten password?</a>
+                        </div>
+
+                        <button type="button" onclick="switchToSocialSignUp('Facebook')"
+                            style="width: 70%; display: block; margin: 15px auto 0; padding: 10px; background-color: #42b72a; border: none; border-radius: 6px; color: #fff; font-size: 0.95rem; font-weight: bold; cursor: pointer; transition: background-color 0.2s;"
+                            onmouseover="this.style.backgroundColor='#36a420'"
+                            onmouseout="this.style.backgroundColor='#42b72a'">
+                            Create new account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Mock Login Modal -->
+        <div id="instagramLoginModal" class="modal-overlay">
+            <div class="modal-content"
+                style="max-width: 450px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid #262626;">
+                <button class="modal-close" onclick="closeSocialLoginModal('Instagram')"
+                    style="background: rgba(255,255,255,0.1); color: #fff;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div class="mock-social-header instagram">
+                    <div class="mock-social-logo-text instagram">Instagram</div>
+                    <p style="color: #fff; margin-top: 5px; font-size: 0.9rem; opacity: 0.9;">Log In to Connect with
+                        Elegant Interior</p>
+                </div>
+
+                <div style="padding: 20px 30px;">
+                    <form class="mock-form-card dark" onsubmit="handleSocialLoginSubmit(event, 'Instagram')"
+                        style="margin: 0 auto; border: 1px solid #262626; background: #000; padding: 25px 30px;">
+                        <div class="mock-input-group">
+                            <label for="igLoginUser" style="color: #8e8e8e;">Phone number, username, or email</label>
+                            <input type="text" id="igLoginUser" placeholder="Phone, username, or email" required
+                                style="background: #121212; border: 1px solid #262626; padding: 9px 8px; font-size: 0.85rem; border-radius: 3px; color: #fff;">
+                        </div>
+
+                        <div class="mock-input-group">
+                            <label for="igLoginPassword" style="color: #8e8e8e;">Password</label>
+                            <input type="password" id="igLoginPassword" placeholder="Enter password" required
+                                style="background: #121212; border: 1px solid #262626; padding: 9px 8px; font-size: 0.85rem; border-radius: 3px; color: #fff;">
+                        </div>
+
+                        <button type="submit"
+                            style="width: 100%; padding: 7px; background-color: #0095f6; border: none; border-radius: 4px; color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 15px;"
+                            onmouseover="this.style.backgroundColor='#1877f2'"
+                            onmouseout="this.style.backgroundColor='#0095f6'">
+                            Log In
+                        </button>
+
+                        <div
+                            style="margin-top: 20px; text-align: center; border-bottom: 1px solid #262626; padding-bottom: 15px;">
+                            <a href="#" style="color: #0095f6; text-decoration: none; font-size: 0.8rem;"
+                                onclick="alert('Password recovery simulated.')">Forgot password?</a>
+                        </div>
+
+                        <div style="margin-top: 15px; text-align: center; font-size: 0.85rem; color: #8e8e8e;">
+                            Don't have an account? <a href="#" onclick="switchToSocialSignUp('Instagram')"
+                                style="color: #0095f6; text-decoration: none; font-weight: 600;">Sign up</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wishlist Display Modal -->
+        <div id="wishlistDisplayModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 900px; padding: 40px;">
+                <button class="modal-close" onclick="closeWishlistDisplayModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                        </path>
+                    </svg>
+                    <h2 style="font-size: 2rem; color: #fff; font-family: var(--font-heading); margin: 0;">Your Wishlist
+                    </h2>
+                </div>
+
+                <div id="wishlistEmptyState" style="text-align: center; padding: 40px 0; display: none;">
+                    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;">Your wishlist is
+                        currently
+                        empty.</p>
+                    <button class="btn" onclick="closeWishlistDisplayModal(); openNavShopModal(event);">Start
+                        Shopping</button>
+                </div>
+
+                <div id="wishlistProductsGrid" class="modal-products">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Display Modal -->
+        <div id="cartDisplayModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 900px; padding: 40px;">
+                <button class="modal-close" onclick="closeCartDisplayModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <h2 style="font-size: 2rem; color: #fff; font-family: var(--font-heading); margin: 0;">Shopping Cart
+                    </h2>
+                </div>
+
+                <div id="cartEmptyState" style="text-align: center; padding: 40px 0; display: none;">
+                    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;">Your cart is currently
+                        empty.</p>
+                    <button class="btn" onclick="closeCartDisplayModal(); openNavShopModal(event);">Start
+                        Shopping</button>
+                </div>
+
+                <div id="cartProductsGrid" class="modal-products">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div id="cartCheckoutContainer"
+                    style="display: none; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: right;">
+                    <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 15px;">Total: <span id="cartTotal"
+                            style="color: var(--primary);">$0.00</span></h3>
+                    <button class="btn"
+                        onclick="window.location.href='checkout.html'; closeCartDisplayModal();">Checkout
+                        Now</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Header Scroll Effect
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Add to Cart Functionality
+            let cartItems = 0;
+            let cartProducts = [];
+            try {
+                const savedCart = localStorage.getItem('elegantInteriorCart');
+                if (savedCart) {
+                    cartProducts = JSON.parse(savedCart);
+                    cartItems = cartProducts.length;
+                }
+            } catch (e) {
+                console.error("Failed to load cart from localStorage", e);
+            }
+            const cartCounters = document.querySelectorAll('.cart-count');
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            let toastTimeout;
+
+            function addToCart(productName) {
+                // Find the product data from DOM
+                let price = '$0.00';
+                let img = '';
+
+                const titles = document.querySelectorAll('.product-title, .modal-product-title');
+                for (let title of titles) {
+                    if (title.textContent === productName) {
+                        const card = title.closest('.product-card, .modal-product-card');
+                        if (card) {
+                            const priceEl = card.querySelector('.product-price, .modal-product-price');
+                            if (priceEl) price = priceEl.textContent.trim().split('\n')[0];
+                            const imgEl = card.querySelector('img');
+                            if (imgEl) img = imgEl.src;
+                            break;
+                        }
+                    }
+                }
+
+                cartItems++;
+                cartProducts.push({ name: productName, price: parseFloat(price.replace(/[^0-9.-]+/g, "")) || 0, priceStr: price, img: img });
+                try {
+                    localStorage.setItem('elegantInteriorCart', JSON.stringify(cartProducts));
+                } catch (e) {
+                    console.error("Failed to save cart to localStorage", e);
+                }
+
+                // Update all cart counters
+                cartCounters.forEach(counter => {
+                    counter.textContent = cartItems;
+                    // Add a little pop animation
+                    counter.style.transform = 'scale(1.5)';
+                    setTimeout(() => {
+                        counter.style.transform = 'scale(1)';
+                    }, 200);
+                });
+
+                // Show toast notification
+                toastMessage.textContent = `${productName} added to cart!`;
+                toast.classList.add('show');
+
+                // Hide toast after 3 seconds
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            // Add to Wishlist Functionality
+            let wishlistItems = 0;
+            let wishlistProducts = []; // Array to track full product objects
+            const wishlistCounters = document.querySelectorAll('.wishlist-count');
+
+            function addToWishlist(productName, price, img, btnElement) {
+                const isActive = btnElement.classList.contains('active');
+
+                if (isActive) {
+                    btnElement.classList.remove('active');
+                    wishlistItems--;
+                    wishlistProducts = wishlistProducts.filter(p => p.name !== productName);
+                    toastMessage.textContent = `${productName} removed from wishlist!`;
+                } else {
+                    btnElement.classList.add('active');
+                    wishlistItems++;
+                    wishlistProducts.push({ name: productName, price: price, img: img });
+                    toastMessage.textContent = `${productName} added to wishlist!`;
+                }
+
+                // Update all wishlist counters
+                wishlistCounters.forEach(counter => {
+                    counter.textContent = wishlistItems;
+                    counter.style.transform = 'scale(1.5)';
+                    setTimeout(() => {
+                        counter.style.transform = 'scale(1)';
+                    }, 200);
+                });
+
+                // Show toast notification
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            function initWishlistButtons() {
+                const productImages = document.querySelectorAll('.product-image, .modal-product-img');
+                productImages.forEach(imgContainer => {
+                    const isModal = imgContainer.classList.contains('modal-product-img');
+                    const parent = isModal ? imgContainer.parentElement : imgContainer;
+
+                    if (!parent.querySelector('.wishlist-btn')) {
+                        const btn = document.createElement('div');
+                        btn.className = 'wishlist-btn';
+                        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>';
+
+                        const titleEl = parent.parentElement.querySelector('.product-title, .modal-product-title');
+                        const priceEl = parent.parentElement.querySelector('.product-price, .modal-product-price');
+                        const imgEl = parent.querySelector('img');
+
+                        const productName = titleEl ? titleEl.textContent : 'Item';
+                        const productPrice = priceEl ? priceEl.textContent.trim().split('\n')[0] : '$0.00'; // handle multiline price strings for sales
+                        const productImg = imgEl ? imgEl.src : '';
+
+                        // Check if already in wishlist to set active state
+                        if (wishlistProducts.some(p => p.name === productName)) {
+                            btn.classList.add('active');
+                        }
+
+                        btn.onclick = function (e) {
+                            e.stopPropagation();
+                            addToWishlist(productName, productPrice, productImg, this);
+                        };
+
+                        if (isModal) {
+                            parent.style.position = 'relative';
+                            parent.insertBefore(btn, parent.firstChild);
+                        } else {
+                            parent.appendChild(btn);
+                        }
+                    }
+                });
+            }
+
+            function switchPreLoginMode(mode) {
+                const isRegister = mode === 'register';
+                const loginForm = document.getElementById('preLoginFormLogin');
+                const registerForm = document.getElementById('preLoginFormRegister');
+
+                if (loginForm) {
+                    loginForm.classList.toggle('active', !isRegister);
+                }
+
+                if (registerForm) {
+                    registerForm.classList.toggle('active', isRegister);
+                }
+            }
+
+            async function apiRequest(endpoint, payload) {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Request failed.');
+                return data;
+            }
+
+            async function handlePreLoginSubmit(event) {
+                event.preventDefault();
+                const email = document.getElementById('preLoginEmail').value.trim();
+                const password = document.getElementById('preLoginPassword').value.trim();
+
+                if (!email || !password) {
+                    toastMessage.textContent = 'Please enter both email and password.';
+                    toast.classList.add('show');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 2500);
+                    return;
+                }
+
+                try {
+                    const result = await apiRequest('/login', { email, password });
+                    sessionStorage.setItem('isAuthenticated', 'true');
+                    sessionStorage.setItem('userName', result.user.fullName);
+                    sessionStorage.setItem('userEmail', result.user.email);
+                    document.getElementById('preLoginScreen').classList.add('hidden');
+                    document.getElementById('siteContent').classList.add('active');
+                    document.body.classList.remove('login-gate-active');
+                    toastMessage.textContent = 'Welcome! You are now inside the website.';
+                    toast.classList.add('show');
+                } catch (error) {
+                    toastMessage.textContent = error.message;
+                    toast.classList.add('show');
+                }
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+            }
+
+            async function handlePreRegisterSubmit(event) {
+                event.preventDefault();
+                const name = document.getElementById('preRegisterName').value.trim();
+                const email = document.getElementById('preRegisterEmail').value.trim();
+                const password = document.getElementById('preRegisterPassword').value.trim();
+
+                if (!name || !email || !password) {
+                    toastMessage.textContent = 'Please fill in your name, email, and password.';
+                    toast.classList.add('show');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 2500);
+                    return;
+                }
+
+                if (password.length < 6) {
+                    toastMessage.textContent = 'Password must be at least 6 characters.';
+                    toast.classList.add('show');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+                    return;
+                }
+
+                try {
+                    await apiRequest('/register', { fullName: name, email, password });
+                    sessionStorage.setItem('isAuthenticated', 'true');
+                    sessionStorage.setItem('userName', name);
+                    sessionStorage.setItem('userEmail', email);
+                    document.getElementById('preLoginScreen').classList.add('hidden');
+                    document.getElementById('siteContent').classList.add('active');
+                    document.body.classList.remove('login-gate-active');
+                    toastMessage.textContent = 'Successfully created an account!';
+                    toast.classList.add('show');
+                } catch (error) {
+                    toastMessage.textContent = error.message;
+                    toast.classList.add('show');
+                }
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                initWishlistButtons();
+
+                // Sync cart counters on page load
+                cartCounters.forEach(counter => {
+                    counter.textContent = cartItems;
+                });
+
+                document.body.classList.add('login-gate-active');
+                document.getElementById('siteContent').classList.remove('active');
+                document.getElementById('preLoginScreen').classList.remove('hidden');
+
+                if (sessionStorage.getItem('isAuthenticated') === 'true') {
+                    document.getElementById('preLoginScreen').classList.add('hidden');
+                    document.getElementById('siteContent').classList.add('active');
+                    document.body.classList.remove('login-gate-active');
+                }
+            });
+
+            function simulateSocialLogin(provider) {
+                alert('Redirecting to ' + provider + ' login...');
+                setTimeout(() => {
+                    sessionStorage.setItem('isAuthenticated', 'true');
+                    const loginCloseBtn = loginModal.querySelector('.modal-close');
+                    const loginCancelBtn = Array.from(loginModal.querySelectorAll('button')).find(b => b.textContent.includes('Cancel'));
+                    if (loginCloseBtn) loginCloseBtn.style.display = '';
+                    if (loginCancelBtn) loginCancelBtn.style.display = '';
+
+                    loginModal.classList.remove('active');
+                    document.body.style.overflow = '';
+
+                    toastMessage.textContent = "Successfully logged in via " + provider + "!";
+                    toast.classList.add('show');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 3000);
+                }, 1000);
+            }
+
+            // Register Modal and Social Sign Up Logic
+            const registerModal = document.getElementById('registerModal');
+            const facebookMockModal = document.getElementById('facebookMockModal');
+            const instagramMockModal = document.getElementById('instagramMockModal');
+
+            function openRegisterModal(event) {
+                if (event) event.preventDefault();
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+                document.body.style.overflow = 'hidden';
+                registerModal.classList.add('active');
+            }
+
+            function closeRegisterModal() {
+                registerModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function switchToLogin(event) {
+                if (event) event.preventDefault();
+                closeRegisterModal();
+                setTimeout(() => {
+                    openLoginModal();
+                }, 300);
+            }
+
+            function openSocialSignUp(provider) {
+                // Close register modal first
+                closeRegisterModal();
+                closeLoginModal();
+
+                // Open the mock provider signup modal
+                setTimeout(() => {
+                    document.body.style.overflow = 'hidden';
+                    if (provider === 'Facebook') {
+                        facebookMockModal.classList.add('active');
+                    } else if (provider === 'Instagram') {
+                        instagramMockModal.classList.add('active');
+                    }
+                }, 300);
+            }
+
+            function closeSocialSignUp(provider) {
+                if (provider === 'Facebook') {
+                    facebookMockModal.classList.remove('active');
+                } else if (provider === 'Instagram') {
+                    instagramMockModal.classList.remove('active');
+                }
+                document.body.style.overflow = '';
+            }
+
+            async function handleRegisterSubmit(event) {
+                event.preventDefault();
+                const name = document.getElementById('registerName').value.trim();
+                const email = document.getElementById('registerEmail').value.trim();
+                const password = document.getElementById('registerPassword').value;
+
+                try {
+                    await apiRequest('/register', { fullName: name, email, password });
+                } catch (error) {
+                    toastMessage.textContent = error.message;
+                    toast.classList.add('show');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+                    return;
+                }
+
+                // Set authenticated session state
+                sessionStorage.setItem('isAuthenticated', 'true');
+                sessionStorage.setItem('userName', name);
+                sessionStorage.setItem('userEmail', email);
+
+                // Show close and cancel buttons on login modal just in case
+                const loginCloseBtn = loginModal.querySelector('.modal-close');
+                const loginCancelBtn = Array.from(loginModal.querySelectorAll('button')).find(b => b.textContent.includes('Cancel'));
+                if (loginCloseBtn) loginCloseBtn.style.display = '';
+                if (loginCancelBtn) loginCancelBtn.style.display = '';
+
+                closeRegisterModal();
+
+                // Toast notification
+                toastMessage.textContent = `Welcome, ${name}! Your account has been created.`;
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            function handleSocialRegisterSubmit(event, provider) {
+                event.preventDefault();
+
+                let name = "";
+                let usernameOrEmail = "";
+
+                if (provider === 'Facebook') {
+                    name = document.getElementById('fbName').value;
+                    usernameOrEmail = document.getElementById('fbEmail').value;
+                } else if (provider === 'Instagram') {
+                    name = document.getElementById('igFullName').value;
+                    usernameOrEmail = document.getElementById('igUsername').value;
+                }
+
+                // Save state
+                sessionStorage.setItem('isAuthenticated', 'true');
+                sessionStorage.setItem('socialLinked', 'true');
+                sessionStorage.setItem('socialProvider', provider);
+                sessionStorage.setItem('userName', name);
+
+                // Show close and cancel buttons on login modal
+                const loginCloseBtn = loginModal.querySelector('.modal-close');
+                const loginCancelBtn = Array.from(loginModal.querySelectorAll('button')).find(b => b.textContent.includes('Cancel'));
+                if (loginCloseBtn) loginCloseBtn.style.display = '';
+                if (loginCancelBtn) loginCancelBtn.style.display = '';
+
+                closeSocialSignUp(provider);
+
+                // Clear inputs
+                if (provider === 'Facebook') {
+                    document.getElementById('fbName').value = '';
+                    document.getElementById('fbEmail').value = '';
+                    document.getElementById('fbPassword').value = '';
+                } else {
+                    document.getElementById('igEmail').value = '';
+                    document.getElementById('igFullName').value = '';
+                    document.getElementById('igUsername').value = '';
+                    document.getElementById('igPassword').value = '';
+                }
+
+                // Success feedback
+                toastMessage.textContent = `Success! Your new ${provider} account (${name}) is created and linked!`;
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 4000);
+            }
+
+            // Social Login Modal Handlers
+            const facebookLoginModal = document.getElementById('facebookLoginModal');
+            const instagramLoginModal = document.getElementById('instagramLoginModal');
+
+            function openSocialLoginModal(provider) {
+                closeLoginModal();
+                closeRegisterModal();
+                setTimeout(() => {
+                    document.body.style.overflow = 'hidden';
+                    if (provider === 'Facebook') {
+                        facebookLoginModal.classList.add('active');
+                    } else if (provider === 'Instagram') {
+                        instagramLoginModal.classList.add('active');
+                    }
+                }, 300);
+            }
+
+            function closeSocialLoginModal(provider) {
+                if (provider === 'Facebook') {
+                    facebookLoginModal.classList.remove('active');
+                } else if (provider === 'Instagram') {
+                    instagramLoginModal.classList.remove('active');
+                }
+                document.body.style.overflow = '';
+            }
+
+            function switchToSocialSignUp(provider) {
+                closeSocialLoginModal(provider);
+                setTimeout(() => {
+                    openSocialSignUp(provider);
+                }, 300);
+            }
+
+            function switchToSocialLogin(provider) {
+                closeSocialSignUp(provider);
+                setTimeout(() => {
+                    openSocialLoginModal(provider);
+                }, 300);
+            }
+
+            function handleSocialLoginSubmit(event, provider) {
+                event.preventDefault();
+
+                let identifier = "";
+                if (provider === 'Facebook') {
+                    identifier = document.getElementById('fbLoginEmail').value;
+                } else if (provider === 'Instagram') {
+                    identifier = document.getElementById('igLoginUser').value;
+                }
+
+                // Extract a display name from email/username
+                let displayName = identifier.split('@')[0];
+                displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+
+                // Save state
+                sessionStorage.setItem('isAuthenticated', 'true');
+                sessionStorage.setItem('socialLoggedIn', 'true');
+                sessionStorage.setItem('socialProvider', provider);
+                sessionStorage.setItem('userName', displayName);
+
+                // Close modals
+                closeSocialLoginModal(provider);
+
+                // Enable modal dismissals
+                const loginCloseBtn = loginModal.querySelector('.modal-close');
+                const loginCancelBtn = Array.from(loginModal.querySelectorAll('button')).find(b => b.textContent.includes('Cancel'));
+                if (loginCloseBtn) loginCloseBtn.style.display = '';
+                if (loginCancelBtn) loginCancelBtn.style.display = '';
+
+                // Clear inputs
+                if (provider === 'Facebook') {
+                    document.getElementById('fbLoginEmail').value = '';
+                    document.getElementById('fbLoginPassword').value = '';
+                } else if (provider === 'Instagram') {
+                    document.getElementById('igLoginUser').value = '';
+                    document.getElementById('igLoginPassword').value = '';
+                }
+
+                // Success feedback toast
+                toastMessage.textContent = `Successfully logged in via ${provider} as ${displayName}!`;
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 4000);
+            }
+
+            // Category Modal Functionality
+            const modal = document.getElementById('categoryModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalHeaderImg = document.getElementById('modalHeaderImg');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalProductsGrid = document.getElementById('modalProductsGrid');
+
+            // Mock data for category products
+            const categoryData = {
+                'Furniture': [
+                    { name: 'Emerald Velvet Chair', price: '$850.00', img: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Marble Coffee Table', price: '$1,250.00', img: 'https://images.unsplash.com/photo-1599619351208-3e6c839d6828?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Rattan Lounge Chair', price: '$450.00', img: 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Leather Sofa', price: '$2,100.00', img: 'https://images.unsplash.com/photo-1550254478-ead40cc54513?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Oak Dining Table', price: '$1,500.00', img: 'https://images.unsplash.com/photo-1604578762246-41134e37f9cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Velvet Ottoman', price: '$250.00', img: 'https://images.unsplash.com/photo-1519947486511-46149fa0a254?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Modern Bookshelf', price: '$600.00', img: 'https://images.unsplash.com/photo-1594620302200-9a762244a156?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Platform Bed Frame', price: '$950.00', img: 'https://images.unsplash.com/photo-1505693314120-0d443867891c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Mid-Century Armchair', price: '$550.00', img: 'https://images.unsplash.com/photo-1503602642458-232111445657?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' }
+                ],
+                'Lighting': [
+                    { name: 'Brass Arc Floor Lamp', price: '$280.00', img: 'https://images.unsplash.com/photo-1540932239986-30128078f3c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Origami Paper Lantern', price: '$95.00', img: 'https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Matte Black Task Lamp', price: '$145.00', img: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Crystal Chandelier', price: '$850.00', img: 'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Bamboo Floor Lamp', price: '$160.00', img: 'https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' }
+                ],
+                'Decor Accents': [
+                    { name: 'Nordic Ceramic Vase Set', price: '$110.00', img: 'https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Abstract Marble Sculpture', price: '$340.00', img: 'https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Woven Wall Hanging', price: '$185.00', img: 'https://images.unsplash.com/photo-1522758971460-1d21eed7dc1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                ],
+                'Kitchen Decor': [
+                    { name: 'Acacia Wood Salt Cellar', price: '$35.00', img: 'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Artisan Ceramic Pour-Over', price: '$65.00', img: 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Brass Herb Planters', price: '$55.00', img: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Hand-Blown Olive Oil Cruet', price: '$50.00', img: 'https://images.unsplash.com/photo-1478144592103-25e218a04891?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+
+                ],
+                'Bedroom Decor': [
+                    { name: 'Chunky Knit Wool Throw', price: '$140.00', img: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Linen Pleated Lumbar Pillow', price: '$65.00', img: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Minimalist Alarm Clock', price: '$45.00', img: 'https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Rattan Accent Mirror', price: '$110.00', img: 'https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Ceramic Ring Dish', price: '$25.00', img: 'https://images.unsplash.com/photo-1557992260-ec58e38d363c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                ],
+                'Pitchers': [
+                    { name: 'Vintage Ceramic Pitcher', price: '$65.00', img: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Glass Water Pitcher', price: '$45.00', img: 'https://images.unsplash.com/photo-1620189507195-68309c04c4d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+                    { name: 'Rustic Terracotta Jug', price: '$35.00', img: 'https://images.unsplash.com/photo-1522273400909-fd1a8f77637e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+
+                ]
+            };
+
+            function openCategoryModal(title, imgSrc, description) {
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+                // Populate Modal Content
+                modalTitle.textContent = title;
+                modalHeaderImg.src = imgSrc + '&auto=format&fit=crop&w=1200&q=80';
+                modalDescription.textContent = description;
+
+                // Populate Products
+                modalProductsGrid.innerHTML = '';
+
+                // Get category products or show placeholder if none defined in mock data
+                const products = categoryData[title] || [
+                    { name: `Premium ${title} Item 1`, price: '$120.00', img: imgSrc + '&auto=format&fit=crop&w=400&q=80' },
+                    { name: `Premium ${title} Item 2`, price: '$250.00', img: imgSrc + '&auto=format&fit=crop&w=400&q=81' },
+                    { name: `Luxury ${title} Item 3`, price: '$340.00', img: imgSrc + '&auto=format&fit=crop&w=400&q=82' }
+                ];
+
+                products.forEach(prod => {
+                    const productHTML = `
+                    <div class="modal-product-card">
+                        <img src="${prod.img}" alt="${prod.name}" class="modal-product-img">
+                        <div class="modal-product-info">
+                            <h4 class="modal-product-title">${prod.name}</h4>
+                            <div class="modal-product-price">${prod.price}</div>
+                            <button class="btn btn-outline" style="width: 100%; padding: 8px; margin-top: 10px; font-size: 0.8rem;" onclick="addToCart('${prod.name}'); event.stopPropagation();">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+                    modalProductsGrid.innerHTML += productHTML;
+                });
+
+                // Init wishlist buttons for new products
+                initWishlistButtons();
+
+                // Show modal
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                modal.classList.add('active');
+            }
+
+            function closeCategoryModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore background scrolling
+            }
+
+            // Close modal on outside click
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeCategoryModal();
+                }
+            });
+
+            // Subscribe Modal Functionality
+            const subscribeModal = document.getElementById('subscribeModal');
+            const subscribedEmailElement = document.getElementById('subscribedEmail');
+            const subscribeEmailInput = document.getElementById('subscribeEmailInput');
+
+            function openSubscribeModal(event) {
+                if (event) event.preventDefault(); // Prevent page reload on form submit
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+
+                const email = subscribeEmailInput.value;
+                if (email) {
+                    subscribedEmailElement.textContent = email;
+                    document.body.style.overflow = 'hidden';
+                    subscribeModal.classList.add('active');
+                }
+            }
+
+            function closeSubscribeModal() {
+                subscribeModal.classList.remove('active');
+                document.body.style.overflow = '';
+                const subscribeForm = document.getElementById('subscribeForm');
+                if (subscribeForm) {
+                    subscribeForm.reset(); // Clear the form input
+                }
+            }
+
+            // Close subscribe modal on outside click
+            subscribeModal.addEventListener('click', function (e) {
+                if (e.target === subscribeModal) {
+                    closeSubscribeModal();
+                }
+            });
+
+            // Login Modal Functionality
+            const loginModal = document.getElementById('loginModal');
+
+            function openLoginModal(event) {
+                if (event) event.preventDefault();
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+                document.body.style.overflow = 'hidden';
+                loginModal.classList.add('active');
+            }
+
+            function closeLoginModal() {
+                if (sessionStorage.getItem('isAuthenticated') !== 'true') return;
+                loginModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // Nav Modals functionality
+            const navHomeModal = document.getElementById('navHomeModal');
+            const navCategoriesModal = document.getElementById('navCategoriesModal');
+            const navShopModal = document.getElementById('navShopModal');
+            const navSubscribeModal = document.getElementById('navSubscribeModal');
+
+            function openNavHomeModal(event) {
+                if (event) event.preventDefault();
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+                document.body.style.overflow = 'hidden';
+                navHomeModal.classList.add('active');
+            }
+            function closeNavHomeModal() {
+                navHomeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function openNavCategoriesModal(event) {
+                if (event) event.preventDefault();
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+                document.body.style.overflow = 'hidden';
+                navCategoriesModal.classList.add('active');
+            }
+            function closeNavCategoriesModal() {
+                navCategoriesModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function openNavShopModal(event) {
+                if (event) event.preventDefault();
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+                document.body.style.overflow = 'hidden';
+                navShopModal.classList.add('active');
+            }
+            function closeNavShopModal() {
+                navShopModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function openNavSubscribeModal(event) {
+                if (event) event.preventDefault();
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+                document.body.style.overflow = 'hidden';
+                navSubscribeModal.classList.add('active');
+            }
+            function closeNavSubscribeModal() {
+                navSubscribeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            async function handleNavSubscribe(event) {
+                event.preventDefault();
+                const email = document.getElementById('navSubEmail').value.trim();
+                try {
+                    await apiRequest('/subscribe', { email });
+                } catch (error) {
+                    toastMessage.textContent = error.message;
+                    toast.classList.add('show');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+                    return;
+                }
+                closeNavSubscribeModal();
+                // Open standard success modal
+                if (email) {
+                    // Increment our fake counter quickly!
+                    const countEl = document.getElementById('subscriberCount');
+                    const navCountEl = document.getElementById('navSubscriberCount');
+
+                    let countStr = countEl.textContent.replace(/,/g, '');
+                    let count = parseInt(countStr) + 1;
+                    countEl.textContent = count.toLocaleString();
+                    if (navCountEl) {
+                        navCountEl.textContent = count.toLocaleString();
+                    }
+
+                    document.getElementById('subscribedEmail').textContent = email;
+                    document.body.style.overflow = 'hidden';
+                    document.getElementById('subscribeModal').classList.add('active');
+                    document.getElementById('navSubEmail').value = ''; // clear
+                }
+            }
+
+            // Product Detail Modal functionality
+            const productDetailModal = document.getElementById('productDetailModal');
+
+            function openProductDetailModal(title, price, imgSrc, category, description) {
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+                document.getElementById('detailTitle').textContent = title;
+                document.getElementById('detailPrice').textContent = price;
+                document.getElementById('detailImg').src = imgSrc;
+                document.getElementById('detailCategory').textContent = category;
+                document.getElementById('detailDescription').textContent = description;
+
+                document.body.style.overflow = 'hidden';
+                productDetailModal.classList.add('active');
+            }
+
+            function closeProductDetailModal() {
+                productDetailModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // Order Tracking Modal Functionality
+            const orderTrackingModal = document.getElementById('orderTrackingModal');
+            const orderTrackingInput = document.getElementById('orderTrackingInput');
+
+            function openOrderTrackingModal(event) {
+                if (event) event.preventDefault();
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+                document.body.style.overflow = 'hidden';
+                orderTrackingModal.classList.add('active');
+                document.getElementById('trackingResult').style.display = 'none';
+                orderTrackingInput.value = '';
+            }
+
+            function closeOrderTrackingModal() {
+                orderTrackingModal.classList.remove('active');
+                document.body.style.overflow = '';
+                document.getElementById('trackingResult').style.display = 'none';
+            }
+
+            async function handleOrderTracking(event) {
+                event.preventDefault();
+                const orderId = orderTrackingInput.value.trim();
+                
+                if (!orderId) {
+                    alert('Please enter an Order ID');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/orders/' + encodeURIComponent(orderId));
+                    const result = await response.json();
+                    if (!response.ok) throw new Error(result.message || 'Order not found.');
+                    document.getElementById('trackingStatus').textContent = result.order.status + ' - ' + result.order.order_number;
+                    document.getElementById('trackingDetails').textContent = 'Order placed on ' + new Date(result.order.created_at).toLocaleDateString() + '.';
+                    document.getElementById('trackingResult').style.display = 'block';
+                } catch (error) {
+                    document.getElementById('trackingStatus').textContent = 'Unable to track order';
+                    document.getElementById('trackingDetails').textContent = error.message;
+                    document.getElementById('trackingResult').style.display = 'block';
+                }
+            }
+
+            // Update close logic on outside click
+            window.addEventListener('click', function (e) {
+                if (e.target === navHomeModal) closeNavHomeModal();
+                if (e.target === navCategoriesModal) closeNavCategoriesModal();
+                if (e.target === navShopModal) closeNavShopModal();
+                if (e.target === navSubscribeModal) closeNavSubscribeModal();
+                if (e.target === orderTrackingModal) closeOrderTrackingModal();
+                if (e.target === productDetailModal) closeProductDetailModal();
+                if (e.target === registerModal) closeRegisterModal();
+                if (e.target === facebookMockModal) closeSocialSignUp('Facebook');
+                if (e.target === instagramMockModal) closeSocialSignUp('Instagram');
+                if (e.target === facebookLoginModal) closeSocialLoginModal('Facebook');
+                if (e.target === instagramLoginModal) closeSocialLoginModal('Instagram');
+            });
+
+            async function handleLoginSubmit(event) {
+                event.preventDefault();
+                const userEmail = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value;
+
+                try {
+                    const result = await apiRequest('/login', { email: userEmail, password });
+                    sessionStorage.setItem('userName', result.user.fullName);
+                } catch (error) {
+                    toastMessage.textContent = error.message;
+                    toast.classList.add('show');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+                    return;
+                }
+
+                sessionStorage.setItem('isAuthenticated', 'true');
+                sessionStorage.setItem('userEmail', userEmail);
+
+                const loginCloseBtn = loginModal.querySelector('.modal-close');
+                const loginCancelBtn = Array.from(loginModal.querySelectorAll('button')).find(b => b.textContent.includes('Cancel'));
+                if (loginCloseBtn) loginCloseBtn.style.display = '';
+                if (loginCancelBtn) loginCancelBtn.style.display = '';
+
+                loginModal.classList.remove('active');
+                document.body.style.overflow = '';
+
+                // Update profile dropdown
+                updateProfileDropdown();
+
+                // Show toast notification
+                toastMessage.textContent = "Successfully logged in!";
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            // Close login modal on outside click
+            loginModal.addEventListener('click', function (e) {
+                if (e.target === loginModal) {
+                    closeLoginModal();
+                }
+            });
+
+            // Profile Dropdown Functionality
+            const profileDropdown = document.getElementById('profileDropdown');
+            const profileContent = document.getElementById('profileContent');
+
+            function updateProfileDropdown() {
+                const isAuthenticated = sessionStorage.getItem('isAuthenticated') === 'true';
+                const userEmail = sessionStorage.getItem('userEmail') || 'User';
+
+                if (isAuthenticated) {
+                    profileContent.innerHTML = `
+                        <div class="profile-user-info">
+                            <p><strong>Logged In As:</strong></p>
+                            <p>${userEmail}</p>
+                        </div>
+                        <a href="#" onclick="openOrderTrackingModal(event)" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;">📦 My Orders</a>
+                        <a href="#" onclick="openWishlistDisplayModal(event)" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;">❤️ My Wishlist</a>
+                        <button onclick="logout()" style="color: #ff6b6b; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; margin-top: 10px;">🚪 Logout</button>
+                    `;
+                } else {
+                    profileContent.innerHTML = `
+                        <button onclick="openLoginModal(event)" style="color: var(--primary); font-weight: 600;">🔑 Login</button>
+                        <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 10px;">Sign in to access your account</p>
+                    `;
+                }
+            }
+
+            function toggleProfileDropdown(event) {
+                event.preventDefault();
+                const isVisible = profileDropdown.style.display !== 'none';
+                profileDropdown.style.display = isVisible ? 'none' : 'block';
+
+                // Update dropdown content
+                updateProfileDropdown();
+
+                // Close dropdown when clicking outside
+                if (!isVisible) {
+                    setTimeout(() => {
+                        document.addEventListener('click', closeProfileDropdownOnClickOutside);
+                    }, 100);
+                } else {
+                    document.removeEventListener('click', closeProfileDropdownOnClickOutside);
+                }
+            }
+
+            function closeProfileDropdownOnClickOutside(event) {
+                if (!event.target.closest('.profile-icon') && !event.target.closest('.profile-dropdown')) {
+                    profileDropdown.style.display = 'none';
+                    document.removeEventListener('click', closeProfileDropdownOnClickOutside);
+                }
+            }
+
+            function logout() {
+                sessionStorage.removeItem('isAuthenticated');
+                sessionStorage.removeItem('userEmail');
+                profileDropdown.style.display = 'none';
+                updateProfileDropdown();
+
+                // Show toast notification
+                toastMessage.textContent = "Successfully logged out!";
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            // Initialize profile dropdown on page load
+            updateProfileDropdown();
+
+            // Update Escape key listener for the new modals
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    if (modal.classList.contains('active')) closeCategoryModal();
+                    if (subscribeModal.classList.contains('active')) closeSubscribeModal();
+                    if (loginModal.classList.contains('active')) closeLoginModal();
+                    if (registerModal.classList.contains('active')) closeRegisterModal();
+                    if (facebookMockModal.classList.contains('active')) closeSocialSignUp('Facebook');
+                    if (instagramMockModal.classList.contains('active')) closeSocialSignUp('Instagram');
+                    if (facebookLoginModal.classList.contains('active')) closeSocialLoginModal('Facebook');
+                    if (instagramLoginModal.classList.contains('active')) closeSocialLoginModal('Instagram');
+                    if (navHomeModal.classList.contains('active')) closeNavHomeModal();
+                    if (navCategoriesModal.classList.contains('active')) closeNavCategoriesModal();
+                    if (navShopModal.classList.contains('active')) closeNavShopModal();
+                    if (navSubscribeModal.classList.contains('active')) closeNavSubscribeModal();
+                    if (orderTrackingModal.classList.contains('active')) closeOrderTrackingModal();
+                    if (productDetailModal.classList.contains('active')) closeProductDetailModal();
+                    if (wishlistDisplayModal.classList.contains('active')) closeWishlistDisplayModal();
+                    if (cartDisplayModal.classList.contains('active')) closeCartDisplayModal();
+                }
+            });
+
+            // Cart Display Modal Logic
+            const cartDisplayModal = document.getElementById('cartDisplayModal');
+            const cartProductsGrid = document.getElementById('cartProductsGrid');
+            const cartEmptyState = document.getElementById('cartEmptyState');
+            const cartCheckoutContainer = document.getElementById('cartCheckoutContainer');
+            const cartTotalSpan = document.getElementById('cartTotal');
+
+            function openCartDisplayModal(event) {
+                if (event) event.preventDefault();
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+
+                // Render cart products
+                cartProductsGrid.innerHTML = '';
+                let total = 0;
+
+                if (cartProducts.length === 0) {
+                    cartEmptyState.style.display = 'block';
+                    cartProductsGrid.style.display = 'none';
+                    cartCheckoutContainer.style.display = 'none';
+                } else {
+                    cartEmptyState.style.display = 'none';
+                    cartProductsGrid.style.display = 'grid';
+                    cartCheckoutContainer.style.display = 'block';
+
+                    cartProducts.forEach((prod, index) => {
+                        total += prod.price;
+                        const productHTML = `
+                        <div class="modal-product-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px;">
+                            <img src="${prod.img}" alt="${prod.name}" class="modal-product-img" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer;" onclick="closeCartDisplayModal(); setTimeout(()=>openProductDetailModal('${prod.name}', '${prod.priceStr}', '${prod.img}', 'Shopping Cart Item', 'View this item from your shopping cart.'), 300)">
+                            <div class="modal-product-info" style="flex-grow: 1; padding: 0 20px;">
+                                <h4 class="modal-product-title" style="color: #fff; margin-bottom: 5px; cursor: pointer;" onclick="closeCartDisplayModal(); setTimeout(()=>openProductDetailModal('${prod.name}', '${prod.priceStr}', '${prod.img}', 'Shopping Cart Item', 'View this item from your shopping cart.'), 300)">${prod.name}</h4>
+                                <div class="modal-product-price" style="color: var(--primary); margin-bottom: 15px;">${prod.priceStr}</div>
+                                <div>
+                                    <button class="btn btn-outline" style="padding: 5px 12px; font-size: 0.8rem;" onclick="removeFromCart(${index})">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                        cartProductsGrid.innerHTML += productHTML;
+                    });
+
+                    // Format total as currency
+                    cartTotalSpan.textContent = '$' + total.toFixed(2);
+                }
+
+                document.body.style.overflow = 'hidden';
+                cartDisplayModal.classList.add('active');
+            }
+
+            function closeCartDisplayModal() {
+                cartDisplayModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function removeFromCart(index) {
+                const removed = cartProducts.splice(index, 1)[0];
+                cartItems--;
+                try {
+                    localStorage.setItem('elegantInteriorCart', JSON.stringify(cartProducts));
+                } catch (e) {
+                    console.error("Failed to save cart to localStorage", e);
+                }
+
+                cartCounters.forEach(counter => {
+                    counter.textContent = cartItems;
+                });
+
+                toastMessage.textContent = `${removed.name} removed from cart!`;
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 3000);
+
+                openCartDisplayModal(null); // refresh the cart DOM
+            }
+
+            // Close cart modal on outside click
+            cartDisplayModal.addEventListener('click', function (e) {
+                if (e.target === cartDisplayModal) {
+                    closeCartDisplayModal();
+                }
+            });
+
+            // Wishlist Display Modal Logic
+            const wishlistDisplayModal = document.getElementById('wishlistDisplayModal');
+            const wishlistProductsGrid = document.getElementById('wishlistProductsGrid');
+            const wishlistEmptyState = document.getElementById('wishlistEmptyState');
+
+            function openWishlistDisplayModal(event) {
+                if (event) event.preventDefault();
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+
+                // Render wishlist products
+                wishlistProductsGrid.innerHTML = '';
+
+                if (wishlistProducts.length === 0) {
+                    wishlistEmptyState.style.display = 'block';
+                    wishlistProductsGrid.style.display = 'none';
+                } else {
+                    wishlistEmptyState.style.display = 'none';
+                    wishlistProductsGrid.style.display = 'grid';
+
+                    wishlistProducts.forEach(prod => {
+                        const productHTML = `
+                        <div class="modal-product-card">
+                            <div style="position: relative;" class="modal-product-img-container">
+                                <img src="${prod.img}" alt="${prod.name}" class="modal-product-img">
+                            </div>
+                            <div class="modal-product-info">
+                                <h4 class="modal-product-title">${prod.name}</h4>
+                                <div class="modal-product-price">${prod.price}</div>
+                                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                    <button class="btn btn-outline" style="flex: 1; padding: 8px; font-size: 0.8rem;" onclick="addToCart('${prod.name}'); setTimeout(closeWishlistDisplayModal, 500); event.stopPropagation();">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                        wishlistProductsGrid.innerHTML += productHTML;
+                    });
+
+                    // We don't re-init wishlist buttons here to avoid recursive adding logic
+                    // But we add a simple remove button instead to each card
+                    const renderedCards = wishlistProductsGrid.querySelectorAll('.modal-product-card');
+                    renderedCards.forEach((card, index) => {
+                        const prod = wishlistProducts[index];
+                        const imgContainer = card.querySelector('.modal-product-img-container');
+
+                        const removeBtn = document.createElement('div');
+                        removeBtn.className = 'wishlist-btn active'; // Style it as active
+                        removeBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>';
+                        removeBtn.onclick = function (e) {
+                            e.stopPropagation();
+
+                            // Manually remove from tracking array
+                            wishlistItems--;
+                            wishlistProducts = wishlistProducts.filter(p => p.name !== prod.name);
+
+                            // Update counters
+                            wishlistCounters.forEach(counter => {
+                                counter.textContent = wishlistItems;
+                            });
+
+                            // Un-toggle any active buttons on the main page for this product
+                            const mainPageTags = document.querySelectorAll('.product-title, .modal-product-title');
+                            mainPageTags.forEach(tag => {
+                                if (tag.textContent === prod.name) {
+                                    const pCard = tag.closest('.product-card, .modal-product-card');
+                                    if (pCard && pCard !== card) {
+                                        const wBtn = pCard.querySelector('.wishlist-btn');
+                                        if (wBtn) wBtn.classList.remove('active');
+                                    }
+                                }
+                            });
+
+                            toastMessage.textContent = `${prod.name} removed from wishlist!`;
+                            toast.classList.add('show');
+                            clearTimeout(toastTimeout);
+                            toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 3000);
+
+                            // Re-render modal content
+                            openWishlistDisplayModal(null);
+                        };
+                        imgContainer.appendChild(removeBtn);
+                    });
+                }
+
+                document.body.style.overflow = 'hidden';
+                wishlistDisplayModal.classList.add('active');
+            }
+
+            function closeWishlistDisplayModal() {
+                wishlistDisplayModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // Close wishlist modal on outside click
+            wishlistDisplayModal.addEventListener('click', function (e) {
+                if (e.target === wishlistDisplayModal) {
+                    closeWishlistDisplayModal();
+                }
+            });
+        </script>
+</body>
+
+</html>

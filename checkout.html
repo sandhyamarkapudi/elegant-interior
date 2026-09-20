@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        // Redirect to main page if not authenticated
+        if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+            window.location.replace('index.html');
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | Elegant Interior</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #c5a059;
+            --primary-hover: #b08d4b;
+            --bg-dark: #0c0c0c;
+            --bg-lighter: #161616;
+            --bg-glass: rgba(30, 30, 30, 0.45);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-light: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --gold-gradient: linear-gradient(135deg, #dfba73 0%, #c5a059 50%, #9e7d3b 100%);
+            --card-gradient: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(197, 160, 89, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(197, 160, 89, 0.3);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Header Logo */
+        header {
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-glass);
+            background: rgba(12, 12, 12, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-4px);
+        }
+
+        /* Layout Container */
+        .checkout-container {
+            max-width: 1200px;
+            margin: 40px auto 100px;
+            padding: 0 20px;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 40px;
+            align-items: start;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Common Card Style */
+        .glass-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+        }
+
+        .section-title span {
+            font-size: 1.2rem;
+            color: var(--primary);
+            background: rgba(197, 160, 89, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-family: var(--font-body);
+            font-weight: 600;
+        }
+
+        /* Form Controls */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            background: rgba(197, 160, 89, 0.04);
+            box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Payment Methods Tabs */
+        .payment-tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 6px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 6px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #0c0c0c;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+        }
+
+        .tab-btn.active svg {
+            transform: scale(1.1);
+        }
+
+        .payment-content {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .payment-content.active {
+            display: block;
+        }
+
+        /* 3D Flipping Credit Card */
+        .card-container {
+            perspective: 1000px;
+            width: min(100%, 380px);
+            height: 220px;
+            margin: 0 auto 30px;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .credit-card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #1c1917 0%, #44403c 100%);
+            color: #fff;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #44403c 0%, #1c1917 100%);
+            transform: rotateY(180deg);
+            padding: 24px 0;
+            justify-content: flex-start;
+        }
+
+        .card-chip {
+            width: 45px;
+            height: 35px;
+            background: linear-gradient(135deg, #ffe082 0%, #ffb300 100%);
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .card-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-style: italic;
+            text-align: right;
+            color: var(--primary);
+            height: 30px;
+        }
+
+        .card-number-display {
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            font-family: monospace;
+            margin: 20px 0 10px;
+            word-spacing: 4px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        .card-holder-display, .card-expiry-display {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .card-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .card-bottom-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .card-magnetic-strip {
+            width: 100%;
+            height: 40px;
+            background: #000;
+            margin-top: 10px;
+        }
+
+        .card-signature-area {
+            width: 80%;
+            height: 35px;
+            background: #eee;
+            margin: 20px auto 0 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: #000;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        /* Wallet / QR Code Details */
+        .wallet-simulation {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .qr-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border: 4px solid var(--primary);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .qr-scanner-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #4ade80;
+            box-shadow: 0 0 8px #4ade80;
+            animation: qrScan 2.5s infinite ease-in-out;
+        }
+
+        @keyframes qrScan {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+
+        .timer-display {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* Order Summary Styles */
+        .summary-card {
+            position: sticky;
+            top: 110px;
+        }
+
+        .summary-item-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .summary-item-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-glass);
+        }
+
+        .summary-item-details {
+            flex-grow: 1;
+        }
+
+        .summary-item-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .summary-item-price {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-top: 2px;
+        }
+
+        .promo-code-container {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .promo-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .promo-btn:hover {
+            background: var(--primary);
+            color: #0c0c0c;
+            border-color: var(--primary);
+        }
+
+        .promo-message {
+            font-size: 0.85rem;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .promo-message.success {
+            color: #4ade80;
+            display: block;
+        }
+
+        .promo-message.error {
+            color: #f87171;
+            display: block;
+        }
+
+        .pricing-calculations {
+            margin-bottom: 25px;
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .calc-row.total-row {
+            font-size: 1.3rem;
+            color: #fff;
+            font-weight: 600;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-checkout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: var(--gold-gradient);
+            color: #0c0c0c;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 30px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(197, 160, 89, 0.35);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-checkout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-checkout:hover::before {
+            left: 150%;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(197, 160, 89, 0.50);
+        }
+
+        .btn-checkout:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Order Success States */
+        #orderSuccessView {
+            display: none;
+            max-width: 750px;
+            margin: 60px auto 120px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #orderSuccessView.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .success-badge {
+            width: 90px;
+            height: 90px;
+            background: rgba(197, 160, 89, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: var(--primary);
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.2);
+            animation: badgePulse 2s infinite alternate;
+        }
+
+        @keyframes badgePulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(197, 160, 89, 0.2); }
+            100% { transform: scale(1.05); box-shadow: 0 0 35px rgba(197, 160, 89, 0.4); }
+        }
+
+        .success-title {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .success-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 40px;
+        }
+
+        /* Tracking Timeline */
+        .tracker-container {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+        }
+
+        .tracker-title {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            text-align: left;
+            font-family: var(--font-heading);
+            letter-spacing: 1px;
+        }
+
+        .tracker-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .tracker-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .tracker-progress-bar {
+            position: absolute;
+            top: 15px;
+            left: 5%;
+            width: 30%; /* Configured dynamically */
+            height: 2px;
+            background: var(--primary);
+            z-index: 2;
+            box-shadow: 0 0 8px var(--primary);
+            transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tracker-step {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .tracker-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-lighter);
+            border: 2px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .tracker-step.active .tracker-dot {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #0c0c0c;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .tracker-step.completed .tracker-dot {
+            background: #fff;
+            border-color: #fff;
+            color: #0c0c0c;
+        }
+
+        .tracker-label {
+            font-size: 0.8rem;
+            margin-top: 10px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .tracker-step.active .tracker-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .receipt-summary {
+            text-align: left;
+            padding: 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            margin-bottom: 40px;
+        }
+
+        .receipt-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* PayPal Simulator Overlay */
+        .paypal-simulator {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .paypal-box {
+            background: #fff;
+            color: #111;
+            padding: 35px;
+            border-radius: 20px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .paypal-logo-sim {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #003087;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .paypal-logo-sim span {
+            color: #0079C1;
+        }
+
+        .paypal-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0079C1;
+            border-radius: 50%;
+            margin: 25px auto;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Confetti Canvas */
+        #confettiCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: 1500;
+            pointer-events: none;
+            display: none;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .summary-card {
+                position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .payment-tabs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .success-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">ELEGANT<span>INTERIOR</span></a>
+        <a href="index.html" class="back-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Continue Shopping
+        </a>
+    </header>
+
+    <div class="checkout-container">
+        <!-- Main Checkout View -->
+        <div id="mainCheckoutView" class="checkout-grid">
+            
+            <!-- Left Side Forms -->
+            <div class="checkout-forms">
+                
+                <!-- Shipping details card -->
+                <div class="glass-card">
+                    <h2 class="section-title">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Customer & Shipping Details
+                    </h2>
+                    
+                    <form id="checkoutDetailsForm">
+                        <div class="form-group">
+                            <label for="emailInput">Email Address</label>
+                            <input type="email" id="emailInput" placeholder="alex@example.com" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstNameInput">First Name</label>
+                                <input type="text" id="firstNameInput" placeholder="Alex" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastNameInput">Last Name</label>
+                                <input type="text" id="lastNameInput" placeholder="Morgan" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="addressInput">Street Address</label>
+                            <input type="text" id="addressInput" placeholder="123 Luxury Avenue, Suite 400" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cityInput">City</label>
+                                <input type="text" id="cityInput" placeholder="Beverly Hills" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="postalInput">Postal Code</label>
+                                <input type="text" id="postalInput" placeholder="90210" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneInput">Phone Number</label>
+                            <input type="tel" id="phoneInput" placeholder="+1 (555) 019-2834" required>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Payment Methods Card -->
+                <div class="glass-card">
+                    <h2 class="section-title">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
+                            <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                            <line x1="2" y1="10" x2="22" y2="10"></line>
+                        </svg>
+                        Select Payment Method
+                    </h2>
+
+                    <!-- Tabs Header -->
+                    <div class="payment-tabs">
+                        <button class="tab-btn active" onclick="switchPaymentMethod('card')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                            Card
+                        </button>
+                        <button class="tab-btn" onclick="switchPaymentMethod('wallet')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                            Wallet / QR
+                        </button>
+                        <button class="tab-btn" onclick="switchPaymentMethod('paypal')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v20h10a5 5 0 0 0 0-10H2"></path></svg>
+                            PayPal
+                        </button>
+                        <button class="tab-btn" onclick="switchPaymentMethod('cod')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                            COD
+                        </button>
+                    </div>
+
+                    <!-- Tab content: Credit Card -->
+                    <div id="paymentContent_card" class="payment-content active">
+                        
+                        <!-- Credit Card Visual Preview -->
+                        <div class="card-container" onclick="flipCreditCard()">
+                            <div class="card-inner" id="creditCardInner">
+                                <!-- Card Front -->
+                                <div class="credit-card-face card-front">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div class="card-chip"></div>
+                                        <div class="card-logo" id="cardLogoDisplay">VISA</div>
+                                    </div>
+                                    <div class="card-number-display" id="cardNumberDisplay">•••• •••• •••• ••••</div>
+                                    <div class="card-bottom-row">
+                                        <div>
+                                            <div class="card-label">CARD HOLDER</div>
+                                            <div class="card-holder-display" id="cardHolderDisplay">ALEX MORGAN</div>
+                                        </div>
+                                        <div>
+                                            <div class="card-label">EXPIRES</div>
+                                            <div class="card-expiry-display" id="cardExpiryDisplay">MM/YY</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Back -->
+                                <div class="credit-card-face card-back">
+                                    <div class="card-magnetic-strip"></div>
+                                    <div class="card-signature-area" id="cardCvvDisplay">•••</div>
+                                    <div style="padding: 20px; font-size: 0.6rem; color: var(--text-muted); text-align: center;">
+                                        This card is a secure mock input for order authorization.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Form fields -->
+                        <div class="form-group">
+                            <label for="ccName">Cardholder Name</label>
+                            <input type="text" id="ccName" placeholder="Alex Morgan" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ccNum">Card Number</label>
+                            <input type="text" id="ccNum" placeholder="4111 2222 3333 4444" maxlength="19" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ccExpiry">Expiration Date</label>
+                                <input type="text" id="ccExpiry" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ccCvv">CVV / CVC</label>
+                                <input type="text" id="ccCvv" placeholder="123" maxlength="4" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab content: Digital Wallet / QR -->
+                    <div id="paymentContent_wallet" class="payment-content">
+                        <div class="wallet-simulation">
+                            <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.95rem;">
+                                Scan the dynamic QR code using Apple Pay, Google Pay, or any UPI supported application.
+                            </p>
+                            <div class="qr-container">
+                                <div class="qr-scanner-line"></div>
+                                <!-- Inline clean mock QR using canvas/SVG format -->
+                                <svg class="qr-image" viewBox="0 0 29 29" fill="none" stroke="#111" stroke-width="1" stroke-linecap="square">
+                                    <path fill="#000" d="M0 0h7v7H0zm22 0h7v7h-7zM0 22h7v7H0zm9 0h2v2H9zm4 0h2v4h-2zm4 0h3v2h-3zm5 0h2v2h-2zm-8 3h2v2h-2zm6 1h2v3h-2zm-12 1h2v2H9zm11 1h2v1h-2zM9 9h2v2H9zm4 0h2v3h-2zm6 0h2v2h-2zm3 0h1v1h-1zm-9 3h3v2h-3zm8 1h3v2h-3zM2 2h3v3H2zm20 0h3v3h-3zM2 24h3v3H2zM9 16h2v3H9zm4 0h4v2h-4zm5 0h3v2h-3zm-6 3h2v2h-2zm12 0h1v3h-1zm-15 1h2v2h-2zM9 2h1v1H9zm3 0h2v2h-2zm3 2h2v1h-2z"/>
+                                </svg>
+                            </div>
+                            <div class="timer-display">
+                                Dynamic QR expires in: <span id="walletTimer">05:00</span>
+                            </div>
+                            <button type="button" class="promo-btn" style="background: rgba(74, 222, 128, 0.1); border-color: rgba(74, 222, 128, 0.3); color: #4ade80;" onclick="simulateWalletScan()">
+                                Simulate Successful Scan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tab content: PayPal -->
+                    <div id="paymentContent_paypal" class="payment-content">
+                        <div style="text-align: center; padding: 30px 10px;">
+                            <p style="color: var(--text-muted); margin-bottom: 25px;">
+                                You will be redirected to the secure PayPal portal to authorize your luxury purchase.
+                            </p>
+                            <!-- Styled PayPal checkout buttons -->
+                            <button type="button" class="btn-checkout" style="background: #ffc439; color: #003087; box-shadow: 0 8px 25px rgba(255, 196, 57, 0.25);" onclick="openPayPalSimulator()">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 8px;"><path d="M7 2h7a5 5 0 0 1 5 5c0 1.95-1.12 3.65-2.77 4.47l-.1.05A6 6 0 0 1 12 17H8l-1.5 5H2.5L7.3 6H7V2z"/></svg>
+                                Pay with PayPal
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tab content: Cash on Delivery -->
+                    <div id="paymentContent_cod" class="payment-content">
+                        <div style="padding: 20px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+                            <h4 style="color: var(--primary); margin-bottom: 10px; font-weight: 600;">Cash on Delivery Terms</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; line-height: 1.5;">
+                                A representative will contact you via phone prior to delivery. Please ensure to have the exact order total ready upon delivery. No surcharge applies.
+                            </p>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="codTermsCheckbox" style="width: 18px; height: 18px; cursor: pointer; flex-shrink: 0;" onchange="toggleCodTerms()">
+                                <label for="codTermsCheckbox" style="margin-bottom: 0; cursor: pointer; color: var(--text-light); font-size: 0.85rem;">I agree to COD verification terms.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right Side: Sticky Order Summary -->
+            <div class="summary-card glass-card">
+                <h2 class="section-title">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    Order Summary
+                </h2>
+
+                <!-- Cart Items Container -->
+                <div id="checkoutSummaryItems">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+                <!-- Promo Code -->
+                <div class="promo-code-container">
+                    <input type="text" id="promoCodeInput" placeholder="Promo Code" style="text-transform: uppercase;">
+                    <button type="button" class="promo-btn" onclick="applyPromoCode()">Apply</button>
+                </div>
+                <div id="promoMessage" class="promo-message"></div>
+
+                <!-- Calculations -->
+                <div class="pricing-calculations">
+                    <div class="calc-row">
+                        <span>Subtotal</span>
+                        <span id="subtotalDisplay">$0.00</span>
+                    </div>
+                    <div class="calc-row" id="discountRow" style="display: none; color: #4ade80;">
+                        <span>Discount (<span id="discountNameDisplay">10%</span>)</span>
+                        <span id="discountDisplay">-$0.00</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Tax (8.0%)</span>
+                        <span id="taxDisplay">$0.00</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Shipping</span>
+                        <span id="shippingDisplay">Free</span>
+                    </div>
+                    <div class="calc-row total-row">
+                        <span>Total</span>
+                        <span id="totalDisplay" style="color: var(--primary);">$0.00</span>
+                    </div>
+                </div>
+
+                <!-- Main Order Submit Button -->
+                <button type="button" class="btn-checkout" id="submitOrderBtn" onclick="submitOrder()">
+                    <span id="btnText">Authorize & Place Order</span>
+                    <svg id="btnArrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Confetti Canvas -->
+        <canvas id="confettiCanvas"></canvas>
+
+        <!-- Order Success View -->
+        <div id="orderSuccessView" class="glass-card">
+            <div class="success-badge">
+                <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            
+            <h1 class="success-title">Order Confirmed</h1>
+            <p class="success-subtitle">
+                Thank you for choosing Elegant Interior. Your luxury purchase is being customized and packaged with premium care.
+            </p>
+
+            <!-- Order Tracking -->
+            <div class="tracker-container">
+                <h3 class="tracker-title">Estimated Delivery & Progress</h3>
+                <div class="tracker-steps">
+                    <div class="tracker-progress-bar" id="trackerProgress"></div>
+                    <div class="tracker-step completed">
+                        <div class="tracker-dot">1</div>
+                        <div class="tracker-label">Ordered</div>
+                    </div>
+                    <div class="tracker-step active">
+                        <div class="tracker-dot">2</div>
+                        <div class="tracker-label">Processing</div>
+                    </div>
+                    <div class="tracker-step">
+                        <div class="tracker-dot">3</div>
+                        <div class="tracker-label">Shipped</div>
+                    </div>
+                    <div class="tracker-step">
+                        <div class="tracker-dot">4</div>
+                        <div class="tracker-label">Delivered</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Receipt Breakdown -->
+            <div class="receipt-summary">
+                <div class="receipt-header">
+                    <div>
+                        <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: #fff;">Invoice Receipt</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">ID: <span id="receiptId">ELG-394821</span></p>
+                    </div>
+                    <div style="text-align: right;">
+                        <h4 style="font-size: 1.1rem; color: var(--primary); font-weight: 600;" id="receiptTotal">$0.00</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Paid via <span id="receiptPaymentMethod">Credit Card</span></p>
+                    </div>
+                </div>
+                
+                <h5 style="color: #fff; margin-bottom: 10px; font-weight: 600; font-size: 0.85rem;">DELIVERY ADDRESS</h5>
+                <p id="receiptAddress" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;"></p>
+
+                <h5 style="color: #fff; margin-bottom: 10px; font-weight: 600; font-size: 0.85rem;">ITEMS PURCHASED</h5>
+                <div id="receiptItems">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <button class="btn-checkout" onclick="window.location.href='index.html'" style="max-width: 300px; margin: 0 auto;">
+                Back to Showroom
+            </button>
+        </div>
+    </div>
+
+    <!-- PayPal Simulator Overlay -->
+    <div class="paypal-simulator" id="paypalOverlay">
+        <div class="paypal-box">
+            <div class="paypal-logo-sim">PayPal</div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Connecting Securely...</h3>
+            <p style="font-size: 0.9rem; color: #666;">Logging in & verifying checkout balance</p>
+            <div class="paypal-spinner"></div>
+            <button type="button" class="promo-btn" style="background: #0079C1; border-color: #0079C1; color: #fff; width: 100%;" onclick="confirmPayPalPayment()">
+                Authorize Payment
+            </button>
+            <button type="button" class="promo-btn" style="background: transparent; border-color: #ccc; color: #333; width: 100%; margin-top: 10px;" onclick="closePayPalSimulator()">
+                Cancel
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Global Checkout States
+        let cart = [];
+        let subtotal = 0;
+        let discount = 0;
+        let tax = 0;
+        let shipping = 0;
+        let total = 0;
+        let appliedPromo = null;
+        let activePaymentMethod = 'card';
+        let codTermsAgreed = false;
+        let walletScanCompleted = false;
+
+        // Load Cart from LocalStorage
+        function loadCart() {
+            try {
+                cart = JSON.parse(localStorage.getItem('elegantInteriorCart') || '[]');
+            } catch (e) {
+                cart = [];
+            }
+            renderSummary();
+        }
+
+        // Render Summary Sidebar
+        function renderSummary() {
+            const container = document.getElementById('checkoutSummaryItems');
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px 0;">Your cart is empty.</p>';
+                document.getElementById('submitOrderBtn').disabled = true;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="summary-item-row">
+                    <img class="summary-item-img" src="${item.img || 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=150'}" alt="${item.name}">
+                    <div class="summary-item-details">
+                        <div class="summary-item-name">${item.name}</div>
+                        <div class="summary-item-price">${item.priceStr || '$' + item.price.toFixed(2)}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            calculatePricing();
+        }
+
+        // Pricing Calculations
+        function calculatePricing() {
+            subtotal = cart.reduce((sum, item) => sum + (item.price || 0), 0);
+            
+            // Check promo discounts
+            discount = 0;
+            if (appliedPromo === 'WELCOME10') {
+                discount = subtotal * 0.10;
+            } else if (appliedPromo === 'LUXURY20') {
+                discount = subtotal * 0.20;
+            }
+
+            // Update discount row visibility
+            const discountRow = document.getElementById('discountRow');
+            if (discount > 0) {
+                discountRow.style.display = 'flex';
+                document.getElementById('discountNameDisplay').textContent = appliedPromo === 'WELCOME10' ? '10%' : '20%';
+                document.getElementById('discountDisplay').textContent = '-$' + discount.toFixed(2);
+            } else {
+                discountRow.style.display = 'none';
+            }
+
+            // Luxury tax is 8%
+            tax = (subtotal - discount) * 0.08;
+
+            // Free shipping above $500, else $45
+            shipping = (subtotal - discount) >= 500 ? 0 : (subtotal > 0 ? 45.00 : 0);
+
+            total = subtotal - discount + tax + shipping;
+
+            // Render details
+            document.getElementById('subtotalDisplay').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('taxDisplay').textContent = '$' + tax.toFixed(2);
+            document.getElementById('shippingDisplay').textContent = shipping === 0 ? 'Free' : '$' + shipping.toFixed(2);
+            document.getElementById('totalDisplay').textContent = '$' + total.toFixed(2);
+            
+            validateFormCompletion();
+        }
+
+        // Apply Promo Code
+        function applyPromoCode() {
+            const code = document.getElementById('promoCodeInput').value.trim().toUpperCase();
+            const msgEl = document.getElementById('promoMessage');
+            msgEl.className = 'promo-message';
+
+            if (!code) {
+                msgEl.textContent = 'Please enter a coupon code.';
+                msgEl.classList.add('error');
+                return;
+            }
+
+            if (code === 'WELCOME10') {
+                appliedPromo = 'WELCOME10';
+                msgEl.textContent = 'Promo code WELCOME10 applied: 10% discount!';
+                msgEl.classList.add('success');
+            } else if (code === 'LUXURY20') {
+                appliedPromo = 'LUXURY20';
+                msgEl.textContent = 'Promo code LUXURY20 applied: 20% discount!';
+                msgEl.classList.add('success');
+            } else {
+                appliedPromo = null;
+                msgEl.textContent = 'Invalid promo code. Try WELCOME10 or LUXURY20.';
+                msgEl.classList.add('error');
+            }
+
+            calculatePricing();
+        }
+
+        // Payment Tabs switcher
+        function switchPaymentMethod(method) {
+            activePaymentMethod = method;
+            
+            // Toggle active tabs class
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => {
+                if (tab.getAttribute('onclick').includes(`'${method}'`)) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            // Toggle active content divs
+            const contents = document.querySelectorAll('.payment-content');
+            contents.forEach(content => {
+                if (content.id === `paymentContent_${method}`) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+
+            validateFormCompletion();
+        }
+
+        // Interactive 3D Card Input updates
+        const ccName = document.getElementById('ccName');
+        const ccNum = document.getElementById('ccNum');
+        const ccExpiry = document.getElementById('ccExpiry');
+        const ccCvv = document.getElementById('ccCvv');
+        const creditCardInner = document.getElementById('creditCardInner');
+
+        // Formats CC Numbers (adds spaces)
+        ccNum.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let formatted = '';
+            for (let i = 0; i < val.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formatted += ' ';
+                }
+                formatted += val[i];
+            }
+            e.target.value = formatted;
+            document.getElementById('cardNumberDisplay').textContent = formatted || '•••• •••• •••• ••••';
+            
+            // Detect card brand
+            const logoDisplay = document.getElementById('cardLogoDisplay');
+            if (val.startsWith('4')) {
+                logoDisplay.textContent = 'VISA';
+                logoDisplay.style.color = '#3b82f6';
+            } else if (val.startsWith('5')) {
+                logoDisplay.textContent = 'Mastercard';
+                logoDisplay.style.color = '#ef4444';
+            } else if (val.startsWith('3')) {
+                logoDisplay.textContent = 'AMEX';
+                logoDisplay.style.color = '#10b981';
+            } else {
+                logoDisplay.textContent = 'CREDIT';
+                logoDisplay.style.color = 'var(--primary)';
+            }
+            validateFormCompletion();
+        });
+
+        ccName.addEventListener('input', (e) => {
+            document.getElementById('cardHolderDisplay').textContent = e.target.value.toUpperCase() || 'ALEX MORGAN';
+            validateFormCompletion();
+        });
+
+        ccExpiry.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, '');
+            if (val.length >= 2) {
+                e.target.value = val.substring(0, 2) + '/' + val.substring(2, 4);
+            } else {
+                e.target.value = val;
+            }
+            document.getElementById('cardExpiryDisplay').textContent = e.target.value || 'MM/YY';
+            validateFormCompletion();
+        });
+
+        ccCvv.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, '');
+            e.target.value = val;
+            document.getElementById('cardCvvDisplay').textContent = '•'.repeat(val.length) || '•••';
+            validateFormCompletion();
+        });
+
+        // Focus events to flip card
+        ccCvv.addEventListener('focus', () => {
+            creditCardInner.classList.add('flipped');
+        });
+        ccCvv.addEventListener('blur', () => {
+            creditCardInner.classList.remove('flipped');
+        });
+
+        function flipCreditCard() {
+            creditCardInner.classList.toggle('flipped');
+        }
+
+        // Wallet QR Code Countdown timer simulation
+        let qrCountdownInterval;
+        function startQrTimer() {
+            clearInterval(qrCountdownInterval);
+            let time = 300; // 5 minutes
+            const display = document.getElementById('walletTimer');
+            
+            qrCountdownInterval = setInterval(() => {
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+                display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (--time < 0) {
+                    clearInterval(qrCountdownInterval);
+                    display.textContent = "Expired";
+                }
+            }, 1000);
+        }
+
+        // Simulate successful wallet QR Scan
+        function simulateWalletScan() {
+            walletScanCompleted = true;
+            const simulationBtn = document.querySelector('#paymentContent_wallet button');
+            simulationBtn.textContent = 'Scan Authorized ✓';
+            simulationBtn.style.background = '#4ade80';
+            simulationBtn.style.color = '#0c0c0c';
+            simulationBtn.disabled = true;
+            
+            validateFormCompletion();
+            
+            // Notify user
+            alert("Digital wallet authorization received successfully!");
+        }
+
+        // PayPal simulator overlay logic
+        function openPayPalSimulator() {
+            document.getElementById('paypalOverlay').style.display = 'flex';
+        }
+
+        function closePayPalSimulator() {
+            document.getElementById('paypalOverlay').style.display = 'none';
+        }
+
+        function confirmPayPalPayment() {
+            closePayPalSimulator();
+            const btn = document.querySelector('#paymentContent_paypal button');
+            btn.textContent = 'PayPal Verified ✓';
+            btn.style.background = '#4ade80';
+            btn.style.color = '#0c0c0c';
+            btn.disabled = true;
+            
+            walletScanCompleted = true; // reusing state for checkout validation
+            validateFormCompletion();
+        }
+
+        // Cash on delivery toggle terms
+        function toggleCodTerms() {
+            codTermsAgreed = document.getElementById('codTermsCheckbox').checked;
+            validateFormCompletion();
+        }
+
+        // Form Validation helper
+        function isShippingFormValid() {
+            const email = document.getElementById('emailInput').value;
+            const fName = document.getElementById('firstNameInput').value;
+            const lName = document.getElementById('lastNameInput').value;
+            const addr = document.getElementById('addressInput').value;
+            const city = document.getElementById('cityInput').value;
+            const postal = document.getElementById('postalInput').value;
+            const phone = document.getElementById('phoneInput').value;
+
+            return email && fName && lName && addr && city && postal && phone;
+        }
+
+        function validateFormCompletion() {
+            const submitBtn = document.getElementById('submitOrderBtn');
+            const isShippingOk = isShippingFormValid();
+            let isPaymentOk = false;
+
+            if (activePaymentMethod === 'card') {
+                const nameOk = ccName.value.trim().length > 3;
+                const numOk = ccNum.value.replace(/\s/g, '').length >= 13;
+                const expOk = ccExpiry.value.length === 5;
+                const cvvOk = ccCvv.value.length >= 3;
+                isPaymentOk = nameOk && numOk && expOk && cvvOk;
+            } else if (activePaymentMethod === 'wallet' || activePaymentMethod === 'paypal') {
+                isPaymentOk = walletScanCompleted;
+            } else if (activePaymentMethod === 'cod') {
+                isPaymentOk = codTermsAgreed;
+            }
+
+            const canSubmit = isShippingOk && isPaymentOk && cart.length > 0;
+            submitBtn.disabled = !canSubmit;
+        }
+
+        // Add inputs listener to update order button state
+        document.querySelectorAll('#checkoutDetailsForm input').forEach(input => {
+            input.addEventListener('input', validateFormCompletion);
+        });
+
+        // Save the order after the existing payment simulation has validated the checkout.
+        async function submitOrder() {
+            const submitBtn = document.getElementById('submitOrderBtn');
+            submitBtn.disabled = true;
+            document.getElementById('btnText').textContent = 'Processing Authorization...';
+            document.getElementById('btnArrow').style.display = 'none';
+
+            // Custom modern spinner inside button
+            const spinner = document.createElement('div');
+            spinner.className = 'paypal-spinner';
+            spinner.style.width = '20px';
+            spinner.style.height = '20px';
+            spinner.style.margin = '0';
+            spinner.style.borderWidth = '2px';
+            spinner.style.borderTopColor = '#0c0c0c';
+            submitBtn.appendChild(spinner);
+
+            const orderPayload = {
+                email: document.getElementById('emailInput').value.trim(),
+                firstName: document.getElementById('firstNameInput').value.trim(),
+                lastName: document.getElementById('lastNameInput').value.trim(),
+                address: document.getElementById('addressInput').value.trim(),
+                city: document.getElementById('cityInput').value.trim(),
+                postalCode: document.getElementById('postalInput').value.trim(),
+                phone: document.getElementById('phoneInput').value.trim(),
+                paymentMethod: activePaymentMethod,
+                items: cart.map(item => ({ name: item.name, price: item.price, quantity: item.quantity || 1 })),
+                subtotal,
+                discount,
+                tax,
+                shipping,
+                total
+            };
+
+            try {
+                const response = await fetch('/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderPayload)
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Order could not be saved.');
+                showSuccessScreen(result.orderId);
+            } catch (error) {
+                submitBtn.disabled = false;
+                document.getElementById('btnText').textContent = 'Authorize & Place Order';
+                document.getElementById('btnArrow').style.display = '';
+                if (spinner.isConnected) spinner.remove();
+                alert(error.message);
+            }
+        }
+
+        // Success screen view & Confetti animation
+        function showSuccessScreen(savedOrderId) {
+            // Retrieve shipping info
+            const fName = document.getElementById('firstNameInput').value;
+            const lName = document.getElementById('lastNameInput').value;
+            const address = document.getElementById('addressInput').value;
+            const city = document.getElementById('cityInput').value;
+            const postal = document.getElementById('postalInput').value;
+
+            // Generate receipt details
+            const orderId = savedOrderId || 'ELG-' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('receiptId').textContent = orderId;
+            document.getElementById('receiptTotal').textContent = '$' + total.toFixed(2);
+            document.getElementById('receiptAddress').innerHTML = `<strong>${fName} ${lName}</strong><br>${address}<br>${city}, ${postal}`;
+            
+            // Map payment display details
+            let paymentText = 'Credit Card';
+            if (activePaymentMethod === 'wallet') paymentText = 'Digital Wallet / QR';
+            if (activePaymentMethod === 'paypal') paymentText = 'PayPal secure gateway';
+            if (activePaymentMethod === 'cod') paymentText = 'Cash on Delivery';
+            document.getElementById('receiptPaymentMethod').textContent = paymentText;
+
+            // Populates success screen itemized list
+            const receiptItems = document.getElementById('receiptItems');
+            receiptItems.innerHTML = cart.map(item => `
+                <div class="calc-row" style="margin-bottom: 6px;">
+                    <span>${item.name}</span>
+                    <span>${item.priceStr || '$' + item.price.toFixed(2)}</span>
+                </div>
+            `).join('');
+
+            // Hide checkout view, display confirmation view
+            document.getElementById('mainCheckoutView').style.display = 'none';
+            const successView = document.getElementById('orderSuccessView');
+            successView.style.display = 'block';
+            
+            // Soft reflow
+            setTimeout(() => {
+                successView.classList.add('active');
+                // Trigger canvas confetti
+                initConfetti();
+                // Clear active cart in storage
+                localStorage.removeItem('elegantInteriorCart');
+            }, 50);
+
+            // Animate tracker bar width (Processing stage = 35% width)
+            setTimeout(() => {
+                document.getElementById('trackerProgress').style.width = '35%';
+            }, 500);
+        }
+
+        // Confetti Canvas Particle System (Self-Contained)
+        function initConfetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            canvas.style.display = 'block';
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = [];
+            const colors = ['#c5a059', '#b08d4b', '#ffffff', '#e0e0e0', '#aa843f'];
+
+            for (let i = 0; i < 150; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height - height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * height,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    tilt: Math.random() * 10 - 5,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                    tiltAngle: 0
+                });
+            }
+
+            let animationFrameId;
+            let drawDuration = 350; // duration ticks
+
+            function draw() {
+                ctx.clearRect(0, 0, width, height);
+
+                let activeParticles = 0;
+                particles.forEach((p) => {
+                    p.tiltAngle += p.tiltAngleIncremental;
+                    p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                    p.x += Math.sin(p.tiltAngle);
+                    p.tilt = Math.sin(p.tiltAngle - activeParticles / 3) * 15;
+
+                    if (p.y < height) {
+                        activeParticles++;
+                    }
+
+                    ctx.beginPath();
+                    ctx.lineWidth = p.r;
+                    ctx.strokeStyle = p.color;
+                    ctx.moveTo(p.x + p.r + p.tilt / 2, p.y);
+                    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                    ctx.stroke();
+
+                    // Loop particle back to top during the burst period
+                    if (p.y > height && drawDuration > 0) {
+                        p.x = Math.random() * width;
+                        p.y = -20;
+                    }
+                });
+
+                drawDuration--;
+                if (activeParticles > 0 || drawDuration > 0) {
+                    animationFrameId = requestAnimationFrame(draw);
+                } else {
+                    canvas.style.display = 'none';
+                    cancelAnimationFrame(animationFrameId);
+                }
+            }
+
+            draw();
+        }
+
+        // Start initialization on Page Load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCart();
+            startQrTimer();
+            // Default setup values to trigger validation
+            validateFormCompletion();
+        });
+    </script>
+</body>
+
+</html>
